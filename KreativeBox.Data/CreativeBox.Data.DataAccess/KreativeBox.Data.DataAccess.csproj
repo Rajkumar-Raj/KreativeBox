@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FBD43EFE-D382-4F0F-99BE-69340D7479A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CreativeBox.Data.DataAccess</RootNamespace>
+    <AssemblyName>CreativeBox.Data.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="DataAccessHelper.cs" />
+    <Compile Include="KB_OrderReportByQuantity_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectAddressSetting_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectAgent_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectOrder_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectProduct_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectQuotation_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectUniversity_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectUser_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_SelectWareHouse_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KB_User_Login_Result.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KreativeBoxDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KreativeBoxDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KreativeBoxDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KreativeBoxDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KreativeBoxDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tblAddressSetting.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAgent.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrder.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProduct.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblQuotation.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRole.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUniversity.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUser.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWareHouse.cs">
+      <DependentUpon>KreativeBoxDB.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="KreativeBoxDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KreativeBoxDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KreativeBoxDB.edmx.diagram">
+      <DependentUpon>KreativeBoxDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KreativeBoxDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KreativeBoxDB.edmx</DependentUpon>
+      <LastGenOutput>KreativeBoxDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="KreativeBoxDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KreativeBoxDB.edmx</DependentUpon>
+      <LastGenOutput>KreativeBoxDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "Freight Order";
+}
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Include SmartWizard CSS -->
+<link href="/wizard/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" />
+
+<!-- Optional SmartWizard theme -->
+<link href="/wizard/dist/css/smart_wizard_theme_circles.css" rel="stylesheet" type="text/css" />
+<link href="/wizard/dist/css/smart_wizard_theme_arrows.css" rel="stylesheet" type="text/css" />
+<link href="/wizard/dist/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
+<style>
+    .btn-toolbar sw-toolbar sw-toolbar-top justify-content-end{display:none;}
+</style>
+
+<div class="container">
+    <!-- External toolbar sample -->
+    
+
+    <!-- SmartWizard html -->
+    <div id="smartwizard" style="margin-top:60px;">
+        <ul>
+            <li><a href="#step-1">Step 1<br /><small>Select recipients</small></a></li>
+            <li><a href="#step-2">Step 2<br /><small>Select items</small></a></li>
+            <li><a href="#step-3">Step 3<br /><small>Select options</small></a></li>
+            
+        </ul>
+
+        <div>
+            <div id="step-1" class="">
+                <h3 class="border-bottom border-gray pb-2">Step 1 - Select recipients</h3>
+                <div class="col-sm-6 form-group valid-form">
+                    <label>Company</label>
+                    <input class="form-control" placeholder="Company" type="text" id="Company">
+                </div>
+                <div class="col-sm-6 form-group valid-form">
+                    <label>Contact Name</label>
+                    <input class="form-control" placeholder="Contact Name" type="text" id="ContactName">
+                </div>
+                <div class="col-sm-6 form-group valid-form">
+                    <label>Phone</label>
+                    <input class="form-control" placeholder="Phone" type="text" id="Phone" maxlength="11">
+                </div>
+                                
+                <div class="col-sm-6 form-group valid-form">
+                    <label>City</label>
+                    <input class="form-control" type="text" 
+                           placeholder="City" id="City" />
+                </div>
+                <div class="col-sm-6 form-group valid-form">
+                    <label>State</label>
+                    <select name="State" style="margin: -2px 0 -10px; padding:8px" id="State" class="form-control">
+                        <option value="" selected="selected">Select State</option>
+                        <option value="New South Wales">New South Wales</option>
+                        <option value="Queensland">Queensland</option>
+                        <option value="South Australia">South Australia</option>
+                        <option value="Tasmania">Tasmania</option>
+                        <option value="Victoria">Victoria</option>
+                        <option value="Western Australia">Western Australia</option>
+                    </select>
+                </div>                
+            </div>
+            <div id="step-2" class="">
+                <h3 class="border-bottom border-gray pb-2">Step 2 - Select items</h3>
+                <div>
+                    <div class="col-sm-12 form-group valid-form">
+                        <label>Ship To</label>
+                        <input class="form-control" placeholder="Company" type="text" id="Company">
+                    </div>
+                    <div class="col-sm-6 form-group valid-form">
+                        <label>Product Name</label>
+                        <input class="form-control" placeholder="Contact Name" type="text" id="ContactName">
+                    </div>
+                    <div class="col-sm-6 form-group valid-form">
+                        <label>Product Id</label>
+                        <input class="form-control" placeholder="Phone" type="text" id="Phone" maxlength="11">
+                    </div>
+                    <div class="col-sm-6 form-group valid-form">
+                        <label>
+                            Product Ref. (Internal)
+                        </label>
+                        <input class="form-control" placeholder="Post code"
+                               type="text" id="ZipCode" maxlength="6" />
+                    </div>
+                    <div class="col-sm-6 form-group valid-form">
+                        <label>
+                            Warehouse
+                        </label>
+                        <input class="form-control" placeholder="Post code"
+                               type="text" id="ZipCode" maxlength="6" />
+                    </div>
+                </div>
+            </div>            
+            <div id="step-3" class="">
+                <h3 class="border-bottom border-gray pb-2">Step 3 - Select options</h3>
+                <div class="card">
+                    <div class="card-header">My Details</div>
+                    <div class="card-block p-0">
+                        <table class="table">
+                            <tbody>
+                                <tr> <th>Name:</th> <td>Tim Smith</td> </tr>
+                                <tr> <th>Email:</th> <td>example@example.com</td> </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Include jQuery -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Include SmartWizard JavaScript source -->
+<script type="text/javascript" src="/wizard/dist/js/jquery.smartWizard.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+      // Smart Wizard
+      $('#smartwizard').smartWizard({
+            selected: 0,  // Initial selected step, 0 = first step
+            keyNavigation:true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+            autoAdjustHeight:true, // Automatically adjust content height
+            cycleSteps: false, // Allows to cycle the navigation of steps
+            backButtonSupport: true, // Enable the back button support
+            useURLhash: true, // Enable selection of the step based on url hash
+            lang: {  // Language variables
+                next: 'Next',
+                previous: 'Previous'
+            },
+            toolbarSettings: {
+                toolbarPosition: 'bottom', // none, top, bottom, both
+                toolbarButtonPosition: 'right', // left, right
+                showNextButton: true, // show/hide a Next button
+                showPreviousButton: true, // show/hide a Previous button
+                toolbarExtraButtons: [
+			$('<button></button>').text('Finish')
+					      .addClass('btn btn-info'),
+			$('<button></button>').text('Cancel')
+					      .addClass('btn btn-danger')
+                      ]
+            },
+            anchorSettings: {
+                anchorClickable: true, // Enable/Disable anchor navigation
+                enableAllAnchors: false, // Activates all anchors clickable all times
+                markDoneStep: true, // add done css
+                enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+            },
+            contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
+            disabledSteps: [],    // Array Steps disabled
+            errorSteps: [],    // Highlight step with errors
+            theme: 'arrows',
+            transitionEffect: 'fade', // Effect on navigation, none/slide/fade
+            transitionSpeed: '400'
+      });
+
+  });
+</script>
+

@@ -1,0 +1,128 @@
+﻿@using CreativeBox.Domain.Entity;
+@using System.Configuration;
+@{
+    OrderEntity obj = new OrderEntity();
+
+    obj = (OrderEntity)ViewBag.objOrderEntity;
+
+    var webUrl = ConfigurationManager.AppSettings["WebUrl"];
+
+    List<AgentEntity> lstAgent = new List<AgentEntity>();
+
+    if (TempData["lstAgent"] != null)
+    {
+        var tempval = TempData["lstAgent"];
+        if (tempval != null)
+        {
+            lstAgent = (List<AgentEntity>)tempval;
+        }
+    }
+}
+
+<div class="modal-content" style="margin-top: 25px;">
+    <div class="modal-header popup-heading form-group:last-child">
+        <a class="close" onclick="HidePopup();">&times;</a>
+        <h4 class="modal-title" style="text-align: center;">
+            <span id="spnHeader"> Place Order </span>
+        </h4>
+    </div>
+    <div class="panel-heading clearfix">
+        <form>
+            <input type="hidden" id="OrderId" value="@obj.OrderId" />
+            <div class="col-sm-6 form-group valid-form">
+                <label>Product Name</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Product Name" type="text" id="ProductName" value="@obj.ProductName" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Quantity</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Quantity" type="text" id="Quantity" value="@obj.Quantity" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Product Id</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="ProductId" type="text" id="ProductId" maxlength="11" value="@obj.ProductId" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Product ref
+                </label>
+                <input class="form-control" placeholder="Product ref" value="@obj.ProductReference"
+                       type="text" id="ProductReference" maxlength="11" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    WareHouse
+                </label>
+                <input class="form-control" placeholder="WareHouse" value="@obj.WareHouse"
+                       type="text" id="WareHouse" maxlength="11" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Select Agent
+                </label><span class="at-required-highlight astrick">*</span>
+                @if (lstAgent != null && lstAgent.Count > 0)
+                {
+                    @Html.DropDownList("0", new SelectList(lstAgent, "AgentName", "AgentName"), "--Select Agent--",
+                                                                              new { required = "", @class = "form-control", style = "margin-top:0px!important;", id = "AgentName" })
+                }
+            </div>
+            <div class="col-sm-12 form-group valid-form">
+                <label>Deliver Address</label>
+                <input class="form-control" placeholder="Deliver Address" value="@obj.DeliverAddress"
+                       type="text" id="DeliverAddress" />
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>City</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" type="text" value="@obj.City"
+                       placeholder="City" id="City" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>State</label><span class="at-required-highlight astrick">*</span>
+                <select name="State" style="margin: -2px 0 -10px; padding:8px" id="State" class="form-control">
+                    <option value="" selected="selected">Select State</option>
+                    <option value="New South Wales">New South Wales</option>
+                    <option value="Queensland">Queensland</option>
+                    <option value="South Australia">South Australia</option>
+                    <option value="Tasmania">Tasmania</option>
+                    <option value="Victoria">Victoria</option>
+                    <option value="Western Australia">Western Australia</option>
+                </select>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Country</label><span class="at-required-highlight astrick">*</span>
+                <select name="Country" style="margin: -2px 0 -10px; padding:8px" id="Country" class="form-control">
+                    <option value="" selected="selected">Select Country</option>
+                    <option value="Australia">Australia</option>
+                    <option value="USA">USA</option>
+                </select>
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Contact Person</label>
+                <input class="form-control" type="text" value="@obj.ContactPerson"
+                       placeholder="Contact Person" id="ContactPerson" />
+            </div>
+
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Contact no
+                </label>
+                <input class="form-control" type="text" value="@obj.ContactNo"
+                       placeholder="Contact No" id="ContactNo" />
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-12 col-md-12 text-center">
+            <button type="submit" id="btnsubmit" class="btn btn-info" onclick="return SaveData();">Save</button>
+            <button type="button" id="btnHideModal" class="btn btn-danger" onclick="return HidePopup();">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#Country").val('@obj.Country');
+    $("#State").val('@obj.State');
+    $("#AgentName").val('@obj.AgentName');
+</script>

@@ -1,0 +1,249 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+
+    <!-- bootstrap-css -->
+    <link href="/Content/css/bootstrap.mini.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="/Content/css/style.css" rel="stylesheet" />
+
+    <!-- font-awesome icons -->
+    <link href="/Content/css/font.mini.css" rel="stylesheet" />
+    <link href="/Content/css/font-awesome.mini.css" rel="stylesheet" />
+    <link href="/Content/css/basictable.mini.css" rel="stylesheet" />
+
+    <!--Custom Css -->
+    <link href="/Content/css/Custom.mini.css" rel="stylesheet" />
+    <link href="/Content/css/toastr.mini.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Content/css/menustyles.mini.css" />
+
+    <script src="~/Content/js/jquery2.0.3.min.js"></script>
+    <script src="~/Content/js/jquery1.7.2.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+    <script src="~/Content/js/modernizr.js"></script>
+    <script src="~/Content/js/jquery.cookie.js"></script>
+    <script src="~/Content/js/bootstrap.js"></script>
+    <script src="~/Content/js/toastr.js"></script>
+    @*<script src="~/Content/js/script.js"></script>*@
+    <script src="~/Content/js/bootstrap.js"></script>
+    <!-- input-forms -->
+    <script src="~/Content/js/valida.2.1.6.min.js"></script>
+    <!-- //input-forms -->
+    <script src="~/Content/js/validator.min.js"></script>
+
+
+    <script type="text/javascript">
+        function zoom() {
+            var screenHeight = screen.height;
+            if (screenHeight < 800) {
+                document.body.style.zoom = "100%";
+            }
+            else {
+                document.body.style.zoom = "125%";
+            }
+        }
+
+
+        function SaveData() {
+            var flag = true;
+            flag = CheckValidation();
+            if (flag == true) {
+                
+                var UNI = new Object();
+                UNI.UserId = $('#UserId').val();
+                UNI.UserName = $('#UserName').val();
+                UNI.Password = $('#Password').val();
+                UNI.FirstName = $('#FirstName').val();
+                UNI.LastName = $('#LastName').val();
+                UNI.DOB = $('#DOB').val();
+                UNI.Email = $('#Email').val();
+                UNI.Address = $('#Address').val();
+                UNI.Phone = $('#Phone').val();
+                UNI.UserType = $('#UserType').val();
+                UNI.RoleTypeId = $('#RoleTypeId').val();
+                UNI.UserImage = $('#UserImage').val();
+                UNI.IsActive = true;
+                UNI.IsDeleted = false;
+
+                $("#divLoading").show();
+                $.ajax({
+                    type: 'POST',
+                    url: '/User/Register',
+                    data: JSON.stringify(UNI),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (responce) {
+                        if (responce.success == false) {
+                            if (responce.responseText == "Error In Sending Email.Please Contact To Your Administrator.") {
+                                toastr.error(responce.responseText);
+                            }
+                            else if (responce.responseText == "Email does not exist") {
+                                toastr.error(responce.responseText);
+                            }
+                        }
+                        else {
+                            // responce.responseText == "Your Email And Password Successfully Sent To Your Email."
+                            toastr.success(responce.responseText);
+                            setTimeout(doStuff, 2000);
+                        }
+                        $("#divLoading").hide();
+                    }
+                });
+            }
+        }
+
+        function CheckValidation() {
+            var countVal = 0;
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var Email = $('#Email').val();
+
+
+            if (Email == "") {
+                toastr.error("Email is required!");
+                countVal++;
+            }
+            else if (Email != "") {
+                if (Email.match(mailformat)) {
+                    document.getElementById('Email').focus();
+                }
+                else {
+                    toastr.error("You have entered an invalid email address!");
+                    countVal++;
+                }
+            }
+            if (countVal != 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function doStuff() {
+            //window.location.href = 'User/Login';
+            window.location.href = '/Login';
+        }
+
+    </script>
+</head>
+
+
+<body>
+    <div id="home">
+        <!-- signin and signup form -->
+        <div class="container">
+            <div id="signupbox" style="margin-top: 50px;" class="mainbox loginbox">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title"><img src="../content/images/logo.png" /></div>
+                    </div>
+                    <div style="padding-top:20px" class="panel-body pad30">
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                        <form id="loginform" class="form-horizontal" action="#" method="post">
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>First Name</label><span class="at-required-highlight astrick">*</span>
+                                <input class="form-control" placeholder="First Name" type="text" id="FirstName" />
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>Last Name</label><span class="at-required-highlight astrick">*</span>
+                                <input class="form-control" placeholder="Last Name" type="text" id="LastName" />
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>User Name</label><span class="at-required-highlight astrick">*</span>
+                                <input class="form-control" placeholder="User Name" type="text" id="UserName" />
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>Password</label><span class="at-required-highlight astrick">*</span>
+                                <input class="form-control" placeholder="Password" type="text" id="Password" />
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>DOB</label><span class="at-required-highlight astrick">*</span>
+                                <input class="form-control" placeholder="DOB" type="text" id="DOB" />
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>Email</label><span class="at-required-highlight astrick">*</span>
+                                <input class="form-control" placeholder="Email" type="text" id="Email" />
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>Phone</label><span class="at-required-highlight astrick">*</span>
+                                <input class="form-control" placeholder="Phone" type="text" id="Phone" maxlength="11" />
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>User Type</label><span class="at-required-highlight astrick">*</span>
+                                <select name="UserType" style="margin: -2px 0 -10px; padding:8px" id="UserType" class="form-control">
+                                    <option value="" selected="selected">-- Select --</option>
+                                    <option value="New South Wales">Admin</option>
+                                    <option value="Queensland">Agent</option>
+                                    <option value="South Australia">University</option>
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>Role</label><span class="at-required-highlight astrick">*</span>
+                                <select name="RoleTypeId" style="margin: -2px 0 -10px; padding:8px" id="RoleTypeId" class="form-control">
+                                    <option value="" selected="selected">-- Select --</option>
+                                    <option value="Australia">WareHouse</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group valid-form">
+                                <label>IsActive</label>
+                                <select name="IsActive" style="margin: -2px 0 -10px; padding:8px" id="IsActive" class="form-control">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 form-group valid-form">
+                                <label>Address</label>
+                                <input class="form-control" placeholder="Address" type="text" id="Address" />
+                            </div>
+                            <div class="col-sm-12 form-group valid-form">
+                                <label>User Image</label>
+                                <input class="form-control" placeholder="UserImage"
+                                       type="file" id="UserLogo" />
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="col-sm-12 controls pv10">
+                                <a id="btn-login" href="#" class="btn btn-success" onclick="return SaveData()">Sign Up <img src="../content/images/arrow-right.png"></a>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12 control">
+                                    <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                                        <a href="@Url.Action("Login", "User")">Back to Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*SET LOADER*@
+    <div id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+            top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+            opacity: .8; filter: alpha(opacity=70);display:none">
+        <p style="position: absolute; top: 30%; left: 45%; color: White;">
+            Please wait...
+        </p>
+        <p style="position: absolute; top: 30%; left: 43%; color: White;margin:2%;">
+            <img src="../Content/images/Loader.gif" />
+        </p>
+    </div>
+</body>
+</html>

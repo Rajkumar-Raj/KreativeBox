@@ -1,0 +1,507 @@
+﻿@model IEnumerable<CreativeBox.Domain.Entity.QuotationEntity>
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="/Content/css/table-style.mini.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel-body">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="pull-right" style="margin-top:-5px;">
+                        &nbsp;<button type="button" class="btn bg-darkblue btn-sm" id="btnAddQuotation" onclick="return QuotationDetailPartial('0');">
+                            <i class="fa fa-plus-circle fa-lg">
+                            </i> Add Quotation
+                        </button>&nbsp;
+                        <button type="button" class="btn bg-info btn-sm" id="btnExport" value="Export To Excel" onclick="return ExportToExcel('tblQuotation');">
+                            <img src="/Content/images/xls-excel.png"> Export To Excel
+                        </button> &nbsp;
+                    </div>
+                    <div class="pull-right" style="margin-top:-5px;">
+                        <input type="text" id="txtSearch" onkeyup="FreeSearch('tblQuotation');" class="form-control serchbox" placeholder="Search for Quotation..">
+                    </div>
+                    <h4 class="panel-title_">List of Quotation</h4>
+                </div>
+                <div class="panel-body no-margin">
+                    <div class="panel-wrapper collapse in" aria-expanded="true">
+                        <table id="tblQuotation">
+                            <thead>
+                                <tr>
+                                    <th class="tableTR" id="thProductname">
+                                        Product name
+                                    </th>
+                                    <th class="tableTR" id="thProcess">
+                                        Variation
+                                    </th>
+                                    <th class="tableTR" id="thProcess">
+                                        Process
+                                    </th>
+                                    <th class="tableTR" id="thType">
+                                        Type
+                                    </th>
+                                    <th class="tableTR" id="thProofingmethod">
+                                        Proofing method
+                                    </th>
+                                    <th class="tableTR" id="thSpecification">
+                                        Specification
+                                    </th>
+                                    <th class="tableTR" id="thQuantity">
+                                        Quantity
+                                    </th>
+                                    <th class="tableTR" id="thOrderID">
+                                        Order ID
+                                    </th>
+                                    <th class="tableTR" id="thStatus">
+                                        Status
+                                    </th>
+                                    <th class="tableTR" id="thAction">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var objItems in Model)
+                                    {
+                                        <tr>
+                                            <td class="content">@objItems.ProductName</td>
+                                            <td class="content">@objItems.Variation</td>
+                                            <td class="content">@objItems.Process</td>
+                                            <td class="content">@objItems.QuotationType</td>
+                                            <td class="content">@objItems.ProofingMethod</td>
+                                            <td class="content">@objItems.Specification</td>
+                                            <td class="content">@objItems.Quantity</td>
+                                            <td class="content">@objItems.OrderId</td>
+                                            <td class="content">
+                                                @if (objItems.IsActive == true)
+                                                {
+                                                    <span>Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>AnActive</span>
+                                                }
+                                            </td>
+                                            <td class="content">
+                                                <a href="javascript:;" onclick="return QuotationDetailPartial('@objItems.QuotationId');">
+                                                    <img src="../Content/images/edit.png" title="Edit" />
+                                                </a>
+                                                <a href="javascript:;" onclick="return deleteQuotation('@objItems.QuotationId');">
+                                                    <img src="../Content/images/delete.png" title="Delete" />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="dvQuotationPopup" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" id="dvQuotationDetailPartial">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function HidePopup() {
+        $("#dvQuotationPopup").modal('hide');
+    }
+
+    function QuotationDetailPartial(val) {
+        $("#divLoading").show();
+        $.ajax({
+            type: "GET",
+            url: '/Order/QuotationDetailPartial',
+            cache: false,
+            contentType: "application/html; charset=UTF-8;",
+            dataType: "html",
+            data: { Quotationid: val },
+            success: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvQuotationDetailPartial').html(partialView);
+                $("#dvQuotationPopup").modal('show');
+                if (val != '0') {
+                    $("#spnHeader").text('Edit Quotation');
+                    $("#btnsubmit").text('Update');
+                }
+                else {
+                    $("#spnHeader").text('Add Quotation');
+                    $("#btnsubmit").text('Save');
+                }
+            },
+            error: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvQuotationDetailPartial').html(partialView);
+                $("#dvQuotationPopup").modal('show');
+            }
+        });
+    }
+
+    function CheckValidation() {
+        var countVal = 0;
+        var ProductName = $('#ProductName').val();
+        var Process = $('#Process').val();
+        var QuotationType = $('#QuotationType').val();
+        var ProofingMethod = $('#ProofingMethod').val();
+        var Specification = $('#Specification').val();
+
+        if (Specification == "") {
+            toastr.error("Specification is Required!");
+            document.getElementById('Specification').focus();
+            countVal++;
+        }
+        else if (ProofingMethod == "") {
+            toastr.error("Proofing Method is Required!");
+            document.getElementById('ProofingMethod').focus();
+            countVal++;
+        }
+        else if (QuotationType == "") {
+            toastr.error("Quotation Type is Required!");
+            document.getElementById('QuotationType').focus();
+            countVal++;
+        }
+        else if (Process == "") {
+            toastr.error("Process is Required!");
+            document.getElementById('Process').focus();
+            countVal++;
+        }
+        else if (ProductName == "") {
+            toastr.error("Product Name is Required!");
+            document.getElementById('ProductName').focus();
+            countVal++;
+        }
+
+        if (countVal != 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function SaveData() {
+        flag = CheckValidation();
+        if (flag == true) {
+
+            var isActive = false;
+            if ($("#IsActive option:selected").val() === "1") {
+                isActive = true;
+            }
+
+            var UNI = new Object();
+            UNI.QuotationId = $('#QuotationId').val();
+            UNI.OrderId = $('#OrderId').val();
+            UNI.ProductName = $('#ProductName').val();
+            UNI.Variation = $('#Variation').val();
+            UNI.ProductReference = $('#ProductReference').val();
+            UNI.Process = $('#Process').val();
+            UNI.QuotationType = $('#QuotationType').val();
+            UNI.ProofingMethod = $('#ProofingMethod').val();
+            UNI.Specification = $('#Specification').val();
+            UNI.Comments = $('#Comments').val();
+            UNI.Quantity = $('#Quantity').val();
+            UNI.InvoiceRecipient = $('#InvoiceRecipient').val();
+            UNI.Status = $('#Status').val();
+            UNI.IsActive = isActive;
+            UNI.IsDeleted = false;
+
+            $("#divLoading").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Order/OperationQuotation',
+                data: JSON.stringify(UNI),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        // toastr.success(response.responseText);
+                        toastr.success("Saved Successfully");
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+    }
+
+    function deleteQuotation(val) {
+        $("#divLoading").show();
+        var confirmation = confirm("Are you sure you want to Delete?");
+        if (confirmation) {
+            var UNI = new Object();
+            UNI.QuotationId = val;
+            $("#divLoading").show();
+            $.ajax({
+                type: "POST",
+                url: '/Order/DeleteQuotation',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify(UNI),
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        toastr.success(response.responseText);
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+        $("#divLoading").hide();
+    }
+
+    function FreeSearch(val) {
+        // Declare variables
+        var input, filter, table, tr, td0, td1, td2, td3, td4, td5, td6, td7, td8, td9, i;
+        input = document.getElementById("txtSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById(val);
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td0 = tr[i].getElementsByTagName("td")[0];
+            var IsFound = false;
+            if (td0 && IsFound == false) {
+                if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td1 = tr[i].getElementsByTagName("td")[1];
+            if (td1 && IsFound == false) {
+                if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td2 = tr[i].getElementsByTagName("td")[2];
+            if (td2 && IsFound == false) {
+                if (td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td3 = tr[i].getElementsByTagName("td")[3];
+            if (td3 && IsFound == false) {
+                if (td3.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td4 = tr[i].getElementsByTagName("td")[4];
+            if (td4 && IsFound == false) {
+                if (td4.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td5 = tr[i].getElementsByTagName("td")[5];
+            if (td5 && IsFound == false) {
+                if (td5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td6 = tr[i].getElementsByTagName("td")[6];
+            if (td6 && IsFound == false) {
+                if (td6.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td7 = tr[i].getElementsByTagName("td")[7];
+            if (td7 && IsFound == false) {
+                if (td7.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td8 = tr[i].getElementsByTagName("td")[8];
+            if (td8 && IsFound == false) {
+                if (td8.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td9 = tr[i].getElementsByTagName("td")[8];
+            if (td9 && IsFound == false) {
+                if (td9.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function ExportToExcel(Id) {
+        var tab_text = "<table border='2px'><tr>";
+        var textRange;
+        var j = 0;
+        var sa;
+        tab = document.getElementById(Id);
+        var headerRow = $('[id*=' + Id + '] tr:first');
+        tab_text += headerRow.html() + '</tr><tr>';
+        var rows = $('[id*=' + Id + '] tr:not(:has(th))');
+        for (j = 0; j < rows.length; j++) {
+            if ($(rows[j]).css('display') != 'none') {
+
+                tab_text = tab_text + rows[j].innerHTML + "</tr>";
+            }
+        }
+        tab_text = tab_text + "</table>";
+        tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+        tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html", "replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus();
+            sa = txtArea1.document.execCommand("SaveAs", true, "Test" + ".xlsx");
+        }
+        else {                 //other browser not tested on IE 11
+            //download(tab_text, 'GSTR1Summary.xls', 'data:application/vnd.ms-excel');
+            name = 'QuotationList' + '.xls';
+            var a = document.createElement("a");
+            var file = new Blob([tab_text], { type: "Quotation List" });
+            a.href = URL.createObjectURL(file);
+            a.download = name;
+            a.click();
+        }
+
+        return (sa);
+    }
+</script>
+
+
+
+<style type="text/css">
+    #thProductname:hover, #thProcess:hover, #thType:hover, #thProofingmethod:hover, #thSpecification:hover, #thQuantity:hover, #thOrderID:hover, #thStatus:hover {
+        cursor: pointer;
+    }
+</style>
+<script>
+    function sortTable(f, n) {
+        var rows = $('#tblQuotation tbody  tr').get();
+
+        rows.sort(function (a, b) {
+
+            var A = getVal(a);
+            var B = getVal(b);
+
+            if (A < B) {
+                return -1 * f;
+            }
+            if (A > B) {
+                return 1 * f;
+            }
+            return 0;
+        });
+
+        function getVal(elm) {
+            var v = $(elm).children('td').eq(n).text().toUpperCase();
+            if ($.isNumeric(v)) {
+                v = parseInt(v, 10);
+            }
+            return v;
+        }
+
+        $.each(rows, function (index, row) {
+            $('#tblQuotation').children('tbody').append(row);
+        });
+    }
+
+    var f_sl = 1;
+    var f_nm = 1;
+    $("#thProductname").click(function () {
+        f_sl *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_sl, n);
+    });
+    $("#thProcess").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thType").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thProofingmethod").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thSpecification").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thQuantity").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thOrderID").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thStatus").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+</script>

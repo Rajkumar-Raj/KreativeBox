@@ -1,0 +1,10 @@
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\bin\Release\CreativeBox.Data.DataAccess.dll.config
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\bin\Release\CreativeBox.Data.DataAccess.dll
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\bin\Release\CreativeBox.Data.DataAccess.pdb
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\bin\Release\EntityFramework.dll
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\bin\Release\EntityFramework.SqlServer.dll
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\bin\Release\EntityFramework.xml
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\bin\Release\EntityFramework.SqlServer.xml
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\obj\Release\KreativeBox.Data.DataAccess.csprojResolveAssemblyReference.cache
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\obj\Release\CreativeBox.Data.DataAccess.dll
+G:\MyProject\KreativeBox\KreativeBox.Data\CreativeBox.Data.DataAccess\obj\Release\CreativeBox.Data.DataAccess.pdb

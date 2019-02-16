@@ -1,0 +1,115 @@
+﻿@using CreativeBox.Domain.Entity;
+@using System.Configuration;
+@{
+    AgentEntity obj = new AgentEntity();
+
+    obj = (AgentEntity)ViewBag.objAgentEntity;
+
+    var webUrl = ConfigurationManager.AppSettings["WebUrl"];
+}
+
+<div class="w100 panel-heading">
+    <h4>
+        <label id="spnHeader"> Add Agent </label>
+    </h4>
+</div>
+<div class="panel-heading clearfix">
+    <form class="w100 d-flex justify-content-between flex-wrap">
+        <input type="hidden" id="UniversityId" value="@obj.AgentId" />
+        <div class="w49 p10">
+            <label>Agent Name</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="Agent Name" type="text" id="AgentName" value="@obj.AgentName" />
+        </div>
+        <div class="w49 p10">
+            <label>Contact Person</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="Contact Person" type="text" id="ContactPerson" value="@obj.AgentName" />
+        </div>
+        <div class="w49">
+            <label>Email</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="Email" type="text" id="Email" value="@obj.Email" />
+        </div>
+        <div class="w49">
+            <label>Phone</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="LeadSource" type="text" id="Phone" maxlength="11" value="@obj.Phone" />
+        </div>
+        <div class="w49 p10">
+            <label>
+                Primary Contact Number
+            </label>
+            <input class="form-control" placeholder="Primary Contact Number" value="@obj.PrimaryPhone"
+                   type="text" id="PrimaryPhone" maxlength="11" />
+        </div>
+        <div class="w49 p10">
+            <label>
+                Website
+            </label>
+            <input class="form-control" placeholder="Website" value="@obj.Website"
+                   type="text" id="Website" />
+        </div>
+        <div class="w49 p10">
+            <label>State</label><span class="at-required-highlight astrick">*</span>
+            <select name="State" style="margin: -2px 0 -10px; padding:8px" id="State" class="form-control">
+                <option value="" selected="selected">Select State</option>
+                <option value="New South Wales">New South Wales</option>
+                <option value="Queensland">Queensland</option>
+                <option value="South Australia">South Australia</option>
+                <option value="Tasmania">Tasmania</option>
+                <option value="Victoria">Victoria</option>
+                <option value="Western Australia">Western Australia</option>
+            </select>
+        </div>
+        <div class="w49 p10">
+            <label>City</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" type="text" value="@obj.City"
+                   placeholder="City" id="City" />
+        </div>
+        <div class="w49 p10">
+            <label>Address</label>
+            <input class="form-control" placeholder="Address" value="@obj.Address"
+                   type="text" id="Address" />
+        </div>
+        <div class="w49 p10">
+            <label>IsActive</label>
+            <select name="IsActive" style="margin: -2px 0 -10px; padding:8px" id="IsActive" class="form-control">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+        <div class="w49">
+            <label>Agent Logo</label>
+            <input class="form-control" placeholder="Upload Image"
+                   type="file" id="UploadImage" onchange="showimagepreview(this)" />
+        </div>
+        <div class="w49 p10">
+            @if (obj.AgentLogo != null && Convert.ToString(obj.AgentLogo).Trim() != "")
+            {
+                var imgUrl = webUrl + "images/agent/" + obj.AgentLogo;
+                <img src="@imgUrl" style="width:200px;height:150px;" id="iImageURL" />
+                <br />
+                <input type="button" id="btnRemoveUpdatedImage" value="Remove Image" onclick="RemoveUpdatedImage()" style="margin-top:4px;" />
+            }
+            else
+            {
+                <img src="~/images/noimage.jpg" style="width:200px;height:150px;" id="iImagePreview" />
+                <br />
+                <input type="button" id="btnRemoveInsertedImage" value="Remove Image" onclick="RemoveInsertedImage()" style="margin-top:4px;" />
+            }
+        </div>
+    </form>
+    <div class="w100 d-flex justify-content-center flex-wrap p10">
+        <div class="w15 plr10">
+            <button type="button" class="btn btn-primary" id="btnsubmit" onclick="return SaveData();">Save</button>
+        </div>
+        <div class="w15 plr10">
+            <button type="button" class="btn btn-danger" id="btnHideModal" onclick="return HidePopup();">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if ("@obj.IsActive" === "False") {
+        $("#IsActive").val('0');
+    }
+        $("#Country").val('@obj.Country');
+        $("#State").val('@obj.State');
+</script>

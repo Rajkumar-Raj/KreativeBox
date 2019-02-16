@@ -1,0 +1,101 @@
+﻿
+@using CreativeBox.Domain.Entity;
+@{
+    AddressEntity obj = new AddressEntity();
+
+    obj = (AddressEntity)ViewBag.objAddressEntity;
+}
+
+<div class="modal-content" style="margin-top: 25px;">
+    <div class="modal-header popup-heading form-group:last-child">
+        <a class="close" onclick="HidePopup();">&times;</a>
+        <h4 class="modal-title" style="text-align: center;">
+            <span id="spnHeader"> Add Address </span>
+        </h4>
+    </div>
+    <div class="panel-heading clearfix">
+        <form>
+            <input type="hidden" id="AddressId" value="@obj.AddressId" />
+            <div class="col-sm-6 form-group valid-form">
+                <label>Company</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Company" type="text" id="Company" value="@obj.Company" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Contact Name</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Contact Name" type="text" id="ContactName" value="@obj.ContactName" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Phone</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Phone" type="text" id="Phone" maxlength="11" value="@obj.Phone" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Post code
+                </label>
+                <input class="form-control" placeholder="Post code" value="@obj.ZipCode"
+                       type="text" id="ZipCode" maxlength="6" />
+            </div>
+            <div class="col-sm-12 form-group valid-form">
+                <label>
+                    Address Line1
+                </label>
+                <input class="form-control" placeholder="Address Line1" value="@obj.AddressLine1"
+                       type="text" id="AddressLine1" />
+            </div>
+            <div class="col-sm-12 form-group valid-form">
+                <label>
+                    Address Line2
+                </label>
+                <input class="form-control" placeholder="Address Line2" value="@obj.AddressLine2"
+                       type="text" id="AddressLine2" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>City</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" type="text" value="@obj.City"
+                       placeholder="City" id="City" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>State</label><span class="at-required-highlight astrick">*</span>
+                <select name="State" style="margin: -2px 0 -10px; padding:8px" id="State" class="form-control">
+                    <option value="" selected="selected">Select State</option>
+                    <option value="New South Wales">New South Wales</option>
+                    <option value="Queensland">Queensland</option>
+                    <option value="South Australia">South Australia</option>
+                    <option value="Tasmania">Tasmania</option>
+                    <option value="Victoria">Victoria</option>
+                    <option value="Western Australia">Western Australia</option>
+                </select>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Country</label><span class="at-required-highlight astrick">*</span>
+                <select name="Country" style="margin: -2px 0 -10px; padding:8px" id="Country" class="form-control">
+                    <option value="" selected="selected">Select Country</option>
+                    <option value="Australia">Australia</option>
+                    <option value="USA">USA</option>
+                </select>
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>IsActive</label>
+                <select name="IsActive" style="margin: -2px 0 -10px; padding:8px" id="IsActive" class="form-control">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-12 col-md-12 text-center">
+            <button type="submit" id="btnsubmit" class="btn btn-info" onclick="return SaveData();">Save</button>
+            <button type="button" id="btnHideModal" class="btn btn-danger" onclick="return HidePopup();">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if ("@obj.IsActive" === "False") {
+        $("#IsActive").val('0');
+    }
+        $("#Country").val('@obj.Country');
+        $("#State").val('@obj.State');
+</script>

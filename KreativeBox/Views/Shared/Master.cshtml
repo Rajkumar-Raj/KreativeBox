@@ -1,0 +1,237 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Content/images/favicon.ico">
+
+    <title>Kreative Box</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="~/Content/css/toastr.css" rel="stylesheet" />
+    <script src="~/Content/JS/toastr.js"></script>
+</head>
+
+<body>
+    <div class="">
+        <div class="wrapper w100 d-flex justify-content-between ">
+            <section class="sideBar">
+                <div class="w100 d-flex flex-column flex-wrap p10">
+                    <div class="w100 d-flex justify-content-between align-items-center logo">
+                        <a href="#" class="ib logo">
+                            <img src="~/Content/images/logo.png">
+                        </a>
+                    </div>
+                    <div class="w100">
+                        <ul class="d-flex flex-column navigation flex-wrap">
+                            <li class="plus">
+                                <a href="@Url.Action("Dashboard", "User")" class="ib">
+                                    <i class="fa fa-windows nav_icon"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="plus">
+                                <a href="@Url.Action("Index", "University")" class="ib">
+                                    <i class="fa fa-home nav_icon"></i>
+                                    <span>University</span>
+                                </a>
+                            </li>
+                            <li class="plus">
+                                <a href="@Url.Action("Index", "Agent")" class="ib">
+                                    <i class="fa fa-cog nav_icon"></i>
+                                    <span>Agent</span>
+                                </a>
+                            </li>
+                            <li class="plus">
+                                <a href="@Url.Action("Index", "User")" class="ib">
+                                    <i class="fa fa-users nav-icon" aria-hidden="true"></i>
+                                    <span>Users Mangement</span>
+                                </a>
+                            </li>
+                            <li class="plus">
+                                <a href="@Url.Action("Index", "Product")" class="ib">
+                                    <i class="fa fa-th-large" aria-hidden="true"></i>
+                                    <span>Product</span>
+                                </a>
+                            </li>
+                            <li class="plus">
+                                <a href="#" class="ib">
+                                    <i class="fa fa-file" aria-hidden="true"></i>
+                                    <span>Order</span>
+                                </a>
+                                <div class="subMenu">
+                                    <ul class="subMenuContent arrow_left">
+                                        <li class="p10 plus">
+                                            <a href="@Url.Action("Index", "Order")">Prit Order</a>
+                                            <div class="subMenu">
+                                                <ul class="subMenuContent arrow_left">
+                                                    <li class="p10">
+                                                        <a href="#">Request Quotation</a>
+                                                    </li>
+                                                    <div class="divider"></div>
+                                                    <li class="p10">
+                                                        <a href="#">Quotation Request Summary</a>
+                                                    </li>
+                                                    <div class="divider"></div>
+                                                    <li class="p10">
+                                                        <a href="@Url.Action("Index", "Order")">Manage Print Orders</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10 plus">
+                                            <a href="#">Freight Order</a>
+                                            <div class="subMenu">
+                                                <ul class="subMenuContent arrow_left">
+                                                    <li class="p10">
+                                                        <a href="/order/FreightOrder">Place an Order Wizard</a>
+                                                    </li>
+                                                    <div class="divider"></div>
+                                                    <li class="p10">
+                                                        <a href="#">Manage Freight Order</a>
+                                                    </li>
+                                                    <div class="divider"></div>
+                                                    <li class="p10">
+                                                        <a href="#">Approve Orders</a>
+                                                    </li>
+                                                    <div class="divider"></div>
+                                                    <li class="p10">
+                                                        <a href="#">Order Request</a>
+                                                    </li>
+                                                    <div class="divider"></div>
+                                                    <li class="p10">
+                                                        <a href="#">Track Order</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="plus">
+                                <a href="#" class="ib">
+                                    <i class="fa fa fa-cogs nav-icon" aria-hidden="true"></i>
+                                    <span>My Settings</span>
+                                </a>
+                                <div class="subMenu">
+                                    <ul class="subMenuContent arrow_left">
+                                        <li class="p10">
+                                            <a href="@Url.Action("Index", "Warehouse")">Warehouse</a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10">
+                                            <a href="@Url.Action("AddressList", "Order")">Configure Address</a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10">
+                                            <a href="#">Audit Log</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="plus">
+                                <a href="#" class="ib">
+                                    <i class="fa fa-bar-chart nav-icon" aria-hidden="true"></i>
+                                    <span>Report</span>
+                                </a>
+                                <div class="subMenu">
+                                    <ul class="subMenuContent arrow_left">
+                                        <li class="p10">
+                                            <a href="@Url.Action("Index", "Order")">Order Summary</a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10">
+                                            <a href="@Url.Action("ActivityReport", "Order")">Activity Report</a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10">
+                                            <a href="@Url.Action("ProductReport", "Order")">Product Report</a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10">
+                                            <a href="@Url.Action("InvoiceReport", "Order")">Invoice Report</a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10">
+                                            <a href="@Url.Action("StockReport", "Order")">Stock Report</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="mainContent">
+                <div class="w100">
+                    <nav class="w100 d-flex justify-content-between align-items-center">
+                        <div class="w100 d-flex justify-content-between align-items-center">
+                            <a class="navbar-toggle collapsed" id="#navbar">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </a>
+                            <ul class="d-flex w10 dropDown" style="z-index:1;">
+                                <li class="w100 d-flex  justify-content-end">
+                                    <a href="#" class="w50 d-flex align-items-center Profile dropdown-toggle">
+                                        <img src="~/Content/images/image.png">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu arrow_top">
+                                        <li class="p10 plr10">
+                                            <a href="/User/MyProfile">
+                                                <i class="fa fa-user"></i>
+                                                <span>My    Profile</span>
+                                            </a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10 plr10">
+                                            <a href="/User/ChangePassword">
+                                                <i class="fa fa-key"></i>
+                                                <span> Change Password</span>
+                                            </a>
+                                        </li>
+                                        <div class="divider"></div>
+                                        <li class="p10 plr10">
+                                            <a href="/User/LogOut">
+                                                <i class="fa fa-sign-out"></i>
+                                                <span>Logout</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @*SET LOADER*@
+    <div id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+            top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+            opacity: .8; filter: alpha(opacity=70);display:none">
+        <p style="position: absolute; top: 30%; left: 45%; color: White;">
+            Please wait...
+        </p>
+        <p style="position: absolute; top: 30%; left: 43%; color: White;margin:2%;">
+            <img src="../Content/images/Loader.gif" />
+        </p>
+    </div>
+</body>
+<script type="text/javascript" src="~/Content/JS/index.js"></script>
+</html>

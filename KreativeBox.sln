@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KreativeBox", "KreativeBox\KreativeBox.csproj", "{52953763-31A8-40A4-BB39-9AD23A194018}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KreativeBox.Data.BusinessLogic", "KreativeBox.Data\CreativeBox.Data.BusinessLogic\KreativeBox.Data.BusinessLogic.csproj", "{E002B033-3294-44D5-87B9-752DCBAC8BB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KreativeBox.Data.DataAccess", "KreativeBox.Data\CreativeBox.Data.DataAccess\KreativeBox.Data.DataAccess.csproj", "{FBD43EFE-D382-4F0F-99BE-69340D7479A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KreativeBox.Utility", "KreativeBox.Utility\CreativeBox.Utility\KreativeBox.Utility.csproj", "{C97D6DED-6788-4FA7-B741-64E7BFD05E0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KreativeBox.Domain.Interface", "KreativeBox.Domain\CreativeBox.Domain.Interface\KreativeBox.Domain.Interface.csproj", "{45652DE8-9709-47D1-9C74-9A104CA4C31D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KreativeBox.Domain.Entity", "KreativeBox.Domain\CreativeBox.Domain.Entity\KreativeBox.Domain.Entity.csproj", "{71C06A43-1F14-49AE-9D2B-C0B098B6FFEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52953763-31A8-40A4-BB39-9AD23A194018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52953763-31A8-40A4-BB39-9AD23A194018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52953763-31A8-40A4-BB39-9AD23A194018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52953763-31A8-40A4-BB39-9AD23A194018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E002B033-3294-44D5-87B9-752DCBAC8BB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E002B033-3294-44D5-87B9-752DCBAC8BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E002B033-3294-44D5-87B9-752DCBAC8BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E002B033-3294-44D5-87B9-752DCBAC8BB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD43EFE-D382-4F0F-99BE-69340D7479A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD43EFE-D382-4F0F-99BE-69340D7479A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD43EFE-D382-4F0F-99BE-69340D7479A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD43EFE-D382-4F0F-99BE-69340D7479A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C97D6DED-6788-4FA7-B741-64E7BFD05E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97D6DED-6788-4FA7-B741-64E7BFD05E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97D6DED-6788-4FA7-B741-64E7BFD05E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97D6DED-6788-4FA7-B741-64E7BFD05E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45652DE8-9709-47D1-9C74-9A104CA4C31D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45652DE8-9709-47D1-9C74-9A104CA4C31D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45652DE8-9709-47D1-9C74-9A104CA4C31D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45652DE8-9709-47D1-9C74-9A104CA4C31D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C06A43-1F14-49AE-9D2B-C0B098B6FFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C06A43-1F14-49AE-9D2B-C0B098B6FFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C06A43-1F14-49AE-9D2B-C0B098B6FFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C06A43-1F14-49AE-9D2B-C0B098B6FFEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

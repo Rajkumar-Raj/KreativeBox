@@ -1,0 +1,12 @@
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\CreativeBox.Utility.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\CreativeBox.Utility.pdb
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\Microsoft.Web.Infrastructure.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\System.Web.Helpers.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\System.Web.Mvc.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\System.Web.Razor.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\System.Web.WebPages.Deployment.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\System.Web.WebPages.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\bin\Release\System.Web.WebPages.Razor.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\obj\Release\KreativeBox.Utility.csprojResolveAssemblyReference.cache
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\obj\Release\CreativeBox.Utility.dll
+G:\MyProject\KreativeBox\KreativeBox.Utility\CreativeBox.Utility\obj\Release\CreativeBox.Utility.pdb

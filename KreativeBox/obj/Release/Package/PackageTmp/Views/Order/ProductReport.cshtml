@@ -1,0 +1,526 @@
+﻿@model IEnumerable<CreativeBox.Domain.Entity.OrderEntity>
+@{
+    ViewBag.Title = "Product Report";
+}
+
+<link href="/Content/css/table-style.mini.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="w100 m10 mtb10">
+        <div class="w100 panel list" id="dvList">
+            <div class="w100 panel-heading d-flex justify-content-between align-items-center">
+                <h4><label>Product Report</label></h4>
+                <div class="w50 d-flex justify-content-between">
+                    <div class="w33">
+                        <input type="text" id="txtSearch" onkeyup="FreeSearch('tblOrder');" class="form-control serchbox" placeholder="Search for Report.." style="padding-left: 10px;">
+                    </div>
+                    <div class="w33">
+                        <button type="button" class="btn btn-info" id="btnExport" value="Export To Excel" onclick="return ExportToExcel('tblOrder');">
+                            <img src="/Content/images/xls-excel.png"> Export To Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  w100">
+                <table id="tblOrder">
+                    <thead>
+                        <tr>
+                            <th class="tableTR">
+                                Order id
+                            </th>
+                            <th class="tableTR">
+                                Product name
+                            </th>
+                            <th class="tableTR">
+                                Product id
+                            </th>
+                            <th class="tableTR">
+                                Sender
+                            </th>
+                            <th class="tableTR">
+                                Receiver
+                            </th>
+                            <th class="tableTR">
+                                Warehouse
+                            </th>
+                            <th class="tableTR">State</th>
+                            <th class="tableTR">
+                                Agent
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="content">1</td>
+                            <td class="content">A4 Pepar</td>
+                            <td class="content">A4P-987</td>
+                            <td class="content">ABC Company</td>
+                            <td class="content">Raj Inc</td>
+                            <td class="content">Melboarn WH</td>
+                            <td class="content">New South Wales</td>
+                            <td class="content">Rajendra</td>
+                        </tr>
+                        <tr>
+                            <td class="content">2</td>
+                            <td class="content">A1 Pepar</td>
+                            <td class="content">A4P-987</td>
+                            <td class="content">ABC Company</td>
+                            <td class="content">Raj Inc</td>
+                            <td class="content">Melboarn WH</td>
+                            <td class="content">New South Wales</td>
+                            <td class="content">Jaydeep</td>
+                        </tr>
+                        <tr>
+                            <td class="content">3</td>
+                            <td class="content">A5 Pepar</td>
+                            <td class="content">A4P-987</td>
+                            <td class="content">ABC Company</td>
+                            <td class="content">Raj Inc</td>
+                            <td class="content">Melboarn WH</td>
+                            <td class="content">New South Wales</td>
+                            <td class="content">Yatin</td>
+                        </tr>
+                        <tr>
+                            <td class="content">4</td>
+                            <td class="content">Broucher</td>
+                            <td class="content">A4P-987</td>
+                            <td class="content">ABC Company</td>
+                            <td class="content">Raj Inc</td>
+                            <td class="content">Melboarn WH</td>
+                            <td class="content">New South Wales</td>
+                            <td class="content">Hiren</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="w100 form m10 mtb10" id="dvAdd">
+            <div class="panel w100">
+                <div class="modal-dialog modal-lg" id="dvOrderDetailPartial">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function HidePopup() {
+        $("#dvOrderPopup").modal('hide');
+    }
+
+    function OrderDetailPartial(val) {
+        $("#divLoading").show();
+        $.ajax({
+            type: "GET",
+            url: '/Order/OrderDetailPartial',
+            cache: false,
+            contentType: "application/html; charset=UTF-8;",
+            dataType: "html",
+            data: { Orderid: val },
+            success: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvOrderDetailPartial').html(partialView);
+                $("#dvOrderPopup").modal('show');
+                if (val != '0') {
+                    $("#spnHeader").text('Edit Order');
+                    $("#btnsubmit").text('Update');
+                }
+                else {
+                    $("#spnHeader").text('Place Order');
+                    $("#btnsubmit").text('Save');
+                }
+            },
+            error: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvOrderDetailPartial').html(partialView);
+                $("#dvOrderPopup").modal('show');
+            }
+        });
+    }
+
+    function CheckValidation() {
+        var countVal = 0;
+        var ProductName = $('#ProductName').val();
+        var Quantity = $('#Quantity').val();
+        var ProductId = $('#ProductId').val();
+        var City = $('#City').val();
+        var State = $('#State').val();
+        var Country = $('#Country').val();
+        var AgentName = $('#AgentName').val();
+
+        if (ProductName == "") {
+            toastr.error("Product Name is Required!");
+            document.getElementById('ProductName').focus();
+            countVal++;
+        }
+        else if (Quantity == "") {
+            toastr.error("Quantity is Required!");
+            document.getElementById('Quantity').focus();
+            countVal++;
+        }
+        else if (ProductId == "") {
+            toastr.error("ProductId is Required!");
+            document.getElementById('ProductId').focus();
+            countVal++;
+        }
+        else if (AgentName == "") {
+            toastr.error("Agent Name is Required!");
+            document.getElementById('AgentName').focus();
+            countVal++;
+        }
+        else if (Country == "") {
+            toastr.error("Country is Required!");
+            document.getElementById('Country').focus();
+            countVal++;
+        }
+        else if (State == "") {
+            toastr.error("State is Required!");
+            document.getElementById('State').focus();
+            countVal++;
+        }
+        else if (City == "") {
+            toastr.error("City is Required!");
+            document.getElementById('City').focus();
+            countVal++;
+        }
+
+        if (countVal != 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function SaveData() {
+        flag = CheckValidation();
+        if (flag == true) {
+            var UNI = new Object();
+            UNI.OrderId = $('#OrderId').val();
+            UNI.ProductName = $('#ProductName').val();
+            UNI.Quantity = $('#Quantity').val();
+            UNI.ProductId = $('#ProductId').val();
+            UNI.ProductReference = $('#ProductReference').val();
+            UNI.WareHouse = $('#WareHouse').val();
+            UNI.DeliverAddress = $('#DeliverAddress').val();
+            UNI.State = $('#State').val();
+            UNI.City = $('#City').val();
+            UNI.Country = $('#Country').val();
+            UNI.ContactPerson = $('#ContactPerson').val();
+            UNI.ContactNo = $('#ContactNo').val();
+            UNI.AgentName = $('#AgentName').val();
+            UNI.LeadSource = $('#LeadSource').val();
+            UNI.IsActive = true;
+            UNI.IsDeleted = false;
+
+            $("#divLoading").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Order/OperationOrder',
+                data: JSON.stringify(UNI),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        // toastr.success(response.responseText);
+                        toastr.success("Saved Successfully");
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+    }
+
+    function deleteOrder(val) {
+        $("#divLoading").show();
+        var confirmation = confirm("Are you sure you want to Delete?");
+        if (confirmation) {
+            var UNI = new Object();
+            UNI.OrderId = val;
+            $("#divLoading").show();
+            $.ajax({
+                type: "POST",
+                url: '/Order/DeleteOrder',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify(UNI),
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        toastr.success(response.responseText);
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+        $("#divLoading").hide();
+    }
+
+    function FreeSearch(val) {
+        // Declare variables
+        var input, filter, table, tr, td0, td1, td2, td3, td4, td5, td6, td7, td8, td9, i;
+        input = document.getElementById("txtSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById(val);
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td0 = tr[i].getElementsByTagName("td")[0];
+            var IsFound = false;
+            if (td0 && IsFound == false) {
+                if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td1 = tr[i].getElementsByTagName("td")[1];
+            if (td1 && IsFound == false) {
+                if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td2 = tr[i].getElementsByTagName("td")[2];
+            if (td2 && IsFound == false) {
+                if (td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td3 = tr[i].getElementsByTagName("td")[3];
+            if (td3 && IsFound == false) {
+                if (td3.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td4 = tr[i].getElementsByTagName("td")[4];
+            if (td4 && IsFound == false) {
+                if (td4.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td5 = tr[i].getElementsByTagName("td")[5];
+            if (td5 && IsFound == false) {
+                if (td5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td6 = tr[i].getElementsByTagName("td")[6];
+            if (td6 && IsFound == false) {
+                if (td6.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td7 = tr[i].getElementsByTagName("td")[7];
+            if (td7 && IsFound == false) {
+                if (td7.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td8 = tr[i].getElementsByTagName("td")[8];
+            if (td8 && IsFound == false) {
+                if (td8.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td9 = tr[i].getElementsByTagName("td")[8];
+            if (td9 && IsFound == false) {
+                if (td9.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+
+    function ExportToExcel(Id) {
+        var tab_text = "<table border='2px'><tr>";
+        var textRange;
+        var j = 0;
+        var sa;
+        tab = document.getElementById(Id);
+        var headerRow = $('[id*=' + Id + '] tr:first');
+        tab_text += headerRow.html() + '</tr><tr>';
+        var rows = $('[id*=' + Id + '] tr:not(:has(th))');
+        for (j = 0; j < rows.length; j++) {
+            if ($(rows[j]).css('display') != 'none') {
+
+                tab_text = tab_text + rows[j].innerHTML + "</tr>";
+            }
+        }
+        tab_text = tab_text + "</table>";
+        tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+        tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html", "replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus();
+            sa = txtArea1.document.execCommand("SaveAs", true, "Test" + ".xlsx");
+        }
+        else {                 //other browser not tested on IE 11
+            //download(tab_text, 'GSTR1Summary.xls', 'data:application/vnd.ms-excel');
+            name = 'OrderList' + '.xls';
+            var a = document.createElement("a");
+            var file = new Blob([tab_text], { type: "Order List" });
+            a.href = URL.createObjectURL(file);
+            a.download = name;
+            a.click();
+        }
+
+        return (sa);
+    }
+</script>
+<script type="text/javascript">
+    function showimagepreview(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#iImageURL').attr('src', e.target.result);
+                $('#iImagePreview').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+    function RemoveUpdatedImage() {
+        $('#iImageURL').attr('src', '../images/noimage.jpg');
+        $('#UploadImage').val('');
+    }
+    function RemoveInsertedImage() {
+        $('#iImagePreview').attr('src', '../images/noimage.jpg');
+        $('#UploadImage').val('');
+    }
+</script>
+
+
+<style type="text/css">
+    #thCompanyName:hover, #thContactName:hover, #thPhone:hover, #thPostCode:hover, #thCity:hover, #thState:hover, #thCountry:hover {
+        cursor: pointer;
+    }
+</style>
+<script>
+    function sortTable(f, n) {
+        var rows = $('#tblAddress tbody  tr').get();
+
+        rows.sort(function (a, b) {
+
+            var A = getVal(a);
+            var B = getVal(b);
+
+            if (A < B) {
+                return -1 * f;
+            }
+            if (A > B) {
+                return 1 * f;
+            }
+            return 0;
+        });
+
+        function getVal(elm) {
+            var v = $(elm).children('td').eq(n).text().toUpperCase();
+            if ($.isNumeric(v)) {
+                v = parseInt(v, 10);
+            }
+            return v;
+        }
+
+        $.each(rows, function (index, row) {
+            $('#tblAddress').children('tbody').append(row);
+        });
+    }
+
+    var f_sl = 1;
+    var f_nm = 1;
+    $("#thCompanyName").click(function () {
+        f_sl *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_sl, n);
+    });
+    $("#thContactName").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thPhone").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thPostCode").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thCity").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thState").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thCountry").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+</script>

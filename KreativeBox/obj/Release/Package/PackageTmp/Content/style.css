@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700');
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,700);
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Global Style Declaration
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+* { box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; }
+body { margin:0; padding:0; font-size:16px; line-height:1.5; font-family: 'Quicksand', sans-serif; font-weight:400; color:#6B6F82;  background: #F4F5FA}
+
+
+img { max-width:100%; height:auto; border:none; vertical-align:middle; }
+a { text-decoration:none; color:#000; transition:all ease 0.3s; -moz-transition:all ease 0.3s; -webkit-transition:all ease 0.3s; -o-transition:all ease 0.3s; }
+a:hover { text-decoration: none; }
+p { margin:0; }
+
+ul { margin: 0; padding: 0; list-style: none}
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Page Wise CSS
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+.main-menu.menu-fixed { position: fixed; top: 0; left: 0; width: 300px; max-height: 100vh; overflow: auto;  background: #00BCD4; height: 100vh;  }
+.main-menu .navigation>li>a {     padding: 12px 30px 12px 18px;  }
+.main-menu .navigation a { color: #fff; display: block; -webkit-transition: all .2s ease;  -o-transition: all .2s ease;  -moz-transition: all .2s ease;  transition: all .2s ease;  position: relative;} 
+.main-menu .navigation>li ul li>a {  padding: 8px 18px 8px 54px; }
+.nav-sub > a:after { content: '\f112'; font-family: 'LineAwesome'; font-size: 1rem; display: inline-block;  position: absolute;  right: 20px;  top: 14px; -webkit-transform: rotate(0deg);  -moz-transform: rotate(0deg); -ms-transform: rotate(0deg);  -o-transform: rotate(0deg);  transform: rotate(0deg);  transition: -webkit-transform 0.2s ease-in-out; }    
+.main-menu .navigation li:hover > a,.main-menu .navigation li>a.open { background: rgba(255,255,255,0.2);  }
+.nav-sub > ul   { display: none; }
+.nav-sub > a.open:after   { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg);  -o-transform: rotate(90deg); transform: rotate(90deg);  }  
+.main-menu .navigation>li ul li li>a { padding-left: 70px;  font-size: 15px; }
+.main-menu .navigation > li:hover > a   { padding-left: 22px;  }
+.main-menu .navigation > li li:hover > a   { padding-left: 58px;  }
+.main-menu .navigation > li li li:hover > a   { padding-left: 76px;  }
+
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Responsive Media Queries CSS
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+/*-=-=- Only Desktop CSS -=-=-*/
+@media (min-width:1231px ) {
+
+}
+
+/*-=-=- Smaller Desktop Devices -=-=-*/
+@media (max-width:1230px ) {
+
+
+}
+
+/*-=-=-  Tablet Landscape and Smaller Devices -=-=-*/
+@media (max-width:1080px ) {
+
+     
+}
+
+/*-=-=-  Tablet Portrait and Smaller Devices -=-=-*/
+@media (max-width:991px ) {
+			
+	
+}
+
+/*-=-=-  Mobile Devices -=-=-*/
+@media (max-width:767px ) {
+
+
+}

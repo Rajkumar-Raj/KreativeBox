@@ -1,0 +1,511 @@
+////////////////////////////////////////import file//////////////////////////
+@import url("https://use.fontawesome.com/releases/v5.7.0/css/all.css")
+
+@import 'mixin'
+
+/////////////////////////style///////////////////////////////////////////////
+
+*
+	@include boxSizing($borderBox) 
+
+body
+	padding: 0
+	margin: 0
+	font-family: open sans,sans-serif
+	font-size: 14px
+	line-height: 1.5
+	letter-spacing: 0.06em
+	color: #111
+	background: $primari-BG
+
+.wrapper
+	background: #fff
+	position: relative
+
+////////////////////////////////////////width////////////////////////////////////
+
+@for $i from 1 through 20
+	.w#{$i * 5}
+		width: ($i * 5%)
+
+.w24
+	width: 24%
+
+.w33
+	width: 33%
+
+.w49
+	width: 49%
+
+//////////////////////////////////////////padding////////////////////////////////
+
+@for $i from 1 through 10
+	.p#{$i * 5}
+		padding-top: ($i * 5px)
+		padding-bottom: ($i * 5px)	
+
+.plr0
+	padding-left: 0px
+	padding-right: 0px
+
+@for $i from 1 through 10
+	.plr#{$i * 5}
+		padding-left: ($i * 5px)
+		padding-right: ($i * 5px)
+
+p
+	padding: 0
+	margin: 0
+	color: #111
+
+* + p
+	margin-top: 15px
+///////////////////////////////////////margin///////////////////////////////////
+
+@for $i from 1 through 10
+	.m#{$i * 5}
+		padding-left: ($i * 5px)
+		padding-right: ($i * 5px)
+
+@for $i from 1 through 10
+	.mtb#{$i * 5}
+		padding-top: ($i * 5px)
+		padding-bottom: ($i * 5px)
+
+.m-0
+	margin-left: 0
+	margin-right: 0
+
+/////////////////////////////////////header/////////////////////////////////////
+$headign-base: 18px
+$scale: 6
+
+@for $i from 1 through 6
+	h#{$i}
+		font-size: $headign-base + $scale * (6 - $i)  	
+		line-height: 1 + ($i / 10)
+
+h1, h2, h3, h4, h5, h6
+	padding: 0
+	margin: 0
+	font-weight: 500
+	color: $fontColor
+
+@for $i from 1 through 6
+	.fontWhite h#{$i}
+		color: $fontColor
+	.bold h#{$i}
+		font-weight: 700
+	.semiBold h#{$i}
+		font-weight: 600
+	.medium h#{$i}
+		font-weight: 500
+	.normal h#{$i}
+		font-weight: 400
+	.light h#{$i}
+		font-weight: 300
+
+/////////////////////////////////////globle css/////////////////////////////////
+
+a
+	padding: 0
+	margin: 0
+	text-decoration: none !important
+	color: #111
+
+ul
+	list-style: none
+	padding: 0
+	margin: 0
+
+img, svg
+	vertical-align: bottom
+
+.ib
+	display: inline-block
+	margin-right: -4px
+	float: none
+	vertical-align: middle
+
+.ib-vertical-top
+	vertical-align: top
+
+.ib-vertical-bottom
+	vertical-align: bottom
+
+.container
+	width: 100%
+	max-width: 1200px
+	padding-left: 15px
+	padding-right: 15px
+	margin: 0 auto
+	display: block
+
+
+.text-left
+	text-align: left
+
+.text-center
+	text-align: center
+
+.text-right
+	text-align: right
+
+img
+	width: auto
+	height: auto
+	max-width: 100%
+
+hr
+	margin-top: 1rem
+	margin-bottom: 1rem
+	border: 0
+	border-top: 1px solid #111 !important
+	-webkit-box-shadow: 0px 1px 0px 0px rgba(242, 242, 242, 0.3)
+	-moz-box-shadow: 0px 1px 0px 0px rgba(242, 242, 242, 0.3)
+	box-shadow: 0px 1px 0px 0px rgba(242, 242, 242, 0.3)
+
+.clearfix
+	display: block
+	&:before, &:after
+		content: ''
+		width: 100%
+		display: table
+
+.bgImage
+	background-size: cover
+	background-position: center
+	background-repeat: no-repeat
+
+///////////////////////////////////input/////////////////////////////////////////
+
+.btn-primary
+	background: $primary
+	color: $whiteBg
+
+.btn-success
+	background: $Success
+	color: $whiteBg
+
+.btn-info
+	background: $Info
+	color: $whiteBg
+
+.btn-warnig
+	background: $Warning
+	color: $whiteBg
+
+.btn-danger
+	background: $RedColor
+	color: $whiteBg
+
+.btn-defualt
+	background: transparent
+	color: $Info
+	border: 1px solid $Info !important
+.whiteBg
+	background: $whiteBg
+
+.btn
+	display: inline-block
+	padding: 4px 12px
+	margin-bottom: 0
+	font-size: 14px
+	font-weight: 400
+	line-height: 1.42857143
+	text-align: center
+	width: 100%
+	white-space: nowrap
+	vertical-align: middle
+	-ms-touch-action: manipulation
+	touch-action: manipulation
+	cursor: pointer
+	user-select: none
+	background-image: none
+	border: 1px solid transparent
+	border-radius: 4px
+	box-shadow: 1px 1px 3px #C3C3C3
+
+input[type=submit]
+	cursor: pointer
+	background-image: url(https://cdn2.hubspot.net/hubfs/1831846/Cogo_Assets_2017/Images/Home%20Page/blank.png) !important
+
+input
+	width: 100%
+	width: 100%
+	overflow: hidden
+
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder
+	opacity: 1 !important
+	color: #666666 !important
+
+textarea
+	display: block
+	outline: none
+	background: transparent
+	font-size: 14px
+	line-height: 20px
+	font-family: 'Roboto', sans-serif
+	font-weight: 300
+	margin: 0
+	padding: 13px 20px
+	width: 100%	!important
+	border: 1px solid rgba($titleColor,0.5)
+	height: auto
+	color: $titleColor
+	border-radius: 2px
+	letter-spacing: 0.06em
+
+input
+	&[type="text"], &[type="number"], &[type="email"], &[type="tel"]
+		display: block
+		outline: none
+		background: $whiteBg
+		font-size: 14px
+		line-height: 20px
+		font-family: 'Roboto', sans-serif
+		font-weight: 300
+		margin: 0
+		width: 100%  !important
+		border: 1px solid rgba($titleColor,0.5)
+		height: 30px
+		color: $titleColor
+		border-radius: 2px
+		letter-spacing: 0.06em
+
+form input
+	&[type="radio"], 
+	&[type="checkbox"]
+		display: none
+	&[type="radio"] + span, 
+	&[type="checkbox"] + span
+		position: relative
+		display: block
+		padding-left: 30px
+		cursor: pointer
+	&[type="radio"] + span:before,
+	&[type="checkbox"] + span:before
+		content: "\f00c"
+		font-family: fontawesome
+		color: $titleColor
+		position: absolute
+		left: 4px
+		top: 4px
+		font-size: 0
+		width: 15px
+		height: 15px
+		display: block
+		border: 1px solid rgba($titleColor,1)
+		@include transition($transition)
+		text-align: center
+		line-height: 14px
+	&[type="radio"] + span:before
+		border-radius: 50%
+	&:checked + span:before
+		background: $themeBg
+		border-color: $themeBg
+	&[type="checkbox"]:checked + span:before
+		border-color: $themeBg
+		font-size: 12px
+		background: $themeBg
+		color: $whiteBg
+
+
+
+select
+	display: block
+	outline: none
+	background: transparent
+	font-size: 14px
+	line-height: 20px
+	font-family: 'Roboto', sans-serif
+	font-weight: 300
+	margin: 0
+	padding: 13px 20px
+	width: 100 !important
+	border: 1px solid $themeBg
+	height: auto
+	color: $fontColor
+	border-radius: 2px
+	letter-spacing: 0.06em
+
+.shadow
+	position: relative
+	background: #ffffff
+	border-radius: 5px
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.03)
+
+.marginAuto
+	margin: 0 auto
+
+table
+	table-layout: fixed
+	width: 100%
+	border-collapse: collapse
+	text-align: left
+
+table tbody tr:nth-of-type(odd)
+	background-color: #fbfcfe
+///////////////////////////////////////////////////flex Box//////////////////////
+
+.d-flex
+	display: -webkit-box
+	display: -ms-flexbox
+	display: flex
+
+.flex-row
+	-webkit-box-orient: horizontal
+	-webkit-box-direction: normal
+	-ms-flex-direction: row
+	flex-direction: row
+
+.flex-column
+	-webkit-box-orient: vertical
+	-webkit-box-direction: normal
+	-ms-flex-direction: column
+	flex-direction: column
+
+.flex-row-reverse
+	-webkit-box-orient: horizontal
+	-webkit-box-direction: reverse
+	-ms-flex-direction: row-reverse
+	flex-direction: row-reverse
+
+.flex-column-reverse
+	-webkit-box-orient: vertical
+	-webkit-box-direction: reverse
+	-ms-flex-direction: column-reverse
+	flex-direction: column-reverse
+
+.flex-wrap
+	-ms-flex-wrap: wrap
+	flex-wrap: wrap
+
+.flex-nowrap
+	-ms-flex-wrap: nowrap
+	flex-wrap: nowrap
+
+.flex-wrap-reverse
+	-ms-flex-wrap: wrap-reverse
+	flex-wrap: wrap-reverse
+
+.justify-content-start
+	-webkit-box-pack: start
+	-ms-flex-pack: start
+	justify-content: flex-start
+
+.justify-content-end
+	-webkit-box-pack: end
+	-ms-flex-pack: end
+	justify-content: flex-end
+
+.justify-content-center
+	-webkit-box-pack: center
+	-ms-flex-pack: center
+	justify-content: center
+
+.justify-content-between
+	-webkit-box-pack: justify
+	-ms-flex-pack: justify
+	justify-content: space-between
+
+.justify-content-around
+	-ms-flex-pack: distribute
+	justify-content: space-around
+
+.align-items-start
+	-webkit-box-align: start
+	-ms-flex-align: start
+	align-items: flex-start
+
+.align-items-end
+	-webkit-box-align: end
+	-ms-flex-align: end
+	align-items: flex-end
+
+.align-items-center
+	-webkit-box-align: center
+	-ms-flex-align: center
+	align-items: center
+
+.align-items-baseline
+	-webkit-box-align: baseline
+	-ms-flex-align: baseline
+	align-items: baseline
+
+.align-items-stretch
+	-webkit-box-align: stretch
+	-ms-flex-align: stretch
+	align-items: stretch
+
+.align-content-start
+	-ms-flex-line-pack: start
+	align-content: flex-start
+
+.align-content-end
+	-ms-flex-line-pack: end
+	align-content: flex-end
+
+.align-content-center
+	-ms-flex-line-pack: center
+	align-content: center
+
+.align-content-between
+	-ms-flex-line-pack: justify
+	align-content: space-between
+
+.align-content-around
+	-ms-flex-line-pack: distribute
+	align-content: space-around
+
+.align-content-stretch
+	-ms-flex-line-pack: stretch
+	align-content: stretch
+
+.align-self-auto
+	-ms-flex-item-align: auto
+	align-self: auto
+
+.align-self-start
+	-ms-flex-item-align: start
+	align-self: flex-start
+
+.align-self-end
+	-ms-flex-item-align: end
+	align-self: flex-end
+
+.align-self-center
+	-ms-flex-item-align: center
+	align-self: center
+
+.align-self-baseline
+	-ms-flex-item-align: baseline
+	align-self: baseline
+
+.align-self-stretch
+	-ms-flex-item-align: stretch
+	align-self: stretch
+
+
+//////////////////////////////borde//////////////////////////////////////////////
+.borderTop
+	border-top: 1px solid #a5b9d2
+
+.borderRight
+	border-right: 1px solid #a5b9d2
+
+.bordreBottom
+	border-bottom: 1px solid #a5b9d2
+
+.borderLeft
+	border-left: 1px solid #a5b9d2
+
+/////////////////////////////////Media query/////////////////////////////////
+
+
+.w10, .w15, .w20, .w24, .w25, .w30, .w35, .w40,
+.w45, .w49, .w50, .w65, .w70, .w75, .w80, .w90,
+.w100
+	@for $i from 1 through length($screen_width)
+		@include breakpoint(#{nth($screen_width, $i)})
+			width: 100%

@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<div class="container-fluid" id="container">
+    <div class="w100 plr10  bordreBottom">
+        <h5>Dashboard</h5>
+    </div>
+    <div class="col-lg-12 agile-last-middle">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="panel panel-info mtop10">
+                    <div class="panel-heading clearfix">
+                        <h4 class="panel-title" style="font-size:18px !important;">Printing Order Summary</h4>
+                    </div>
+                    <div class="panel-body p-t-0">
+                        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="panel panel-info mtop10">
+                    <div class="panel-heading clearfix">
+                        <h4 class="panel-title" style="font-size:18px !important;">Freight Order Summary</h4>
+                    </div>
+                    <div class="panel-body p-t-0">
+                        <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 agile-last-middle">
+        <div class="row">
+            <div class="panel panel-info mtop10">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title" style="font-size:18px !important;">Stocks Summary</h4>
+                </div>
+                <div class="panel-body p-t-0">
+                    <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	//title:{
+    //	text: "Number of Orders under Each City"
+	//},
+	axisY: {
+	    title: "No. of Quantity"
+	},
+	data: [{
+		type: "column",		
+		dataPoints: [{"label":"Apr/2019","y":70.0},{"label":"Feb/2019","y":50.0},{"label":"Jun/2019","y":178.0},{"label":"Mar/2019","y":60.0},{"label":"May/2019","y":80.0}],
+	}]
+});
+    chart.render();
+
+    var chart1 = new CanvasJS.Chart("chartContainer1", {
+        animationEnabled: true,
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+        //title:{
+        //	text: "Number of Orders under Each City"
+        //},
+        axisY: {
+            title: "No. of Quantity"
+        },
+        data: [{
+            type: "spline",		
+            dataPoints: [{"label":"Apr/2019","y":70.0},{"label":"Feb/2019","y":50.0},{"label":"Jun/2019","y":178.0},{"label":"Mar/2019","y":60.0},{"label":"May/2019","y":80.0}],
+        }]
+    });
+    chart1.render();
+
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	//theme:"light2",
+	animationEnabled: true,
+	//title:{
+	//	text: "Game of Thrones Viewers of the First Airing on HBO"
+	//},
+	axisY :{
+		includeZero: false,
+		title: "Number of Stocks"
+		//suffix: "mn"
+	},
+	toolTip: {
+		shared: "true"
+	},
+	//legend:{
+	//	cursor:"pointer",
+	//	itemclick : toggleDataSeries
+	//},
+	data: [{
+		type: "line",
+		//visible: false,
+		showInLegend: true,
+		//yValueFormatString: "##.00mn",
+		name: "Season 1",
+		dataPoints: [
+			{ label: "Jan", y: 100 },
+			{ label: "Feb", y: 124 },
+			{ label: "Mar", y: 135 },
+			{ label: "Apr", y: 148 },
+			{ label: "May", y: 128 },
+			{ label: "jun", y: 110 },
+			{ label: "Jul", y: 140 },
+			{ label: "Aug", y: 148 },
+			{ label: "Sep", y: 150 },
+			{ label: "Nov", y: 136 }
+		]
+	},
+	{
+		type: "line",
+		showInLegend: true,
+		//visible: false,
+		//yValueFormatString: "##.00mn",
+		name: "Season 2",
+		dataPoints: [
+			{ label: "Jan", y: 90 },
+			{ label: "Feb", y: 100 },
+			{ label: "Mar", y: 120 },
+			{ label: "Apr", y: 133 },
+			{ label: "May", y: 140 },
+			{ label: "jun", y: 150 },
+			{ label: "Jul", y: 145 },
+			{ label: "Aug", y: 150 },
+			{ label: "Sep", y: 160 },
+			{ label: "Nov", y: 170 }
+		]
+	}]
+});
+chart2.render();
+
+
+}
+</script>

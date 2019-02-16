@@ -1,0 +1,11 @@
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\CreativeBox.Domain.Entity.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\CreativeBox.Domain.Entity.pdb
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\System.Web.Mvc.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\System.Web.Razor.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\System.Web.WebPages.Razor.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\System.Web.WebPages.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\Microsoft.Web.Infrastructure.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\bin\Release\System.Web.WebPages.Deployment.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\obj\Release\KreativeBox.Domain.Entity.csprojResolveAssemblyReference.cache
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\obj\Release\CreativeBox.Domain.Entity.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Entity\obj\Release\CreativeBox.Domain.Entity.pdb

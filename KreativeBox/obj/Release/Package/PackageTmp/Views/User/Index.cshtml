@@ -1,0 +1,600 @@
+﻿@model IEnumerable<CreativeBox.Domain.Entity.UserEntity>
+@{
+    ViewBag.Title = "User List";
+}
+
+<div class="container-fluid">
+    <div class="w100 m10 mtb10">
+        <div class="w100 panel list" id="dvList">
+            <div class="w100 panel-heading d-flex justify-content-between align-items-center">
+                <h4><label>List of User</label></h4>
+                <div class="w50 d-flex justify-content-between">
+                    <div class="w33">
+                        <input type="text" id="txtSearch" onkeyup="FreeSearch('tblUser');" class="form-control serchbox" placeholder="Search for User.." style="padding-left: 10px;">
+                    </div>
+                    <div class="w33">
+                        <button type="button" class="btn btn-primary" id="btnAddUser" onclick="return UserDetailPartial('0');">
+                            <i class="fa fa-plus-circle fa-lg">
+                            </i> Add User
+                        </button>
+                    </div>
+                    <div class="w33">
+                        <button type="button" class="btn btn-info" id="btnExport" value="Export To Excel" onclick="return ExportToExcel('tblUser');">
+                            <img src="/Content/images/xls-excel.png"> Export To Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  w100">
+                <table id="tblUser">
+                    <thead>
+                        <tr>
+                            <th class="tableTR" id="thFirstName">First Name</th>
+                            <th class="tableTR" id="thLastName">Last Name</th>
+                            <th class="tableTR" id="thUserName">User Name</th>
+                            <th class="tableTR" id="thEmail">Email</th>
+                            <th class="tableTR" id="thDOB">DOB</th>
+                            <th class="tableTR" id="thPhoneNumber">Phone Number</th>
+                            <th class="tableTR" id="thUserType">User Type</th>
+                            <th class="tableTR" id="thLastLogin">Last Login</th>
+                            <th class="tableTR" id="thStatus">Status</th>
+                            <th class="tableTR" id="thAction">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var objItems in Model)
+                            {
+                                <tr>
+                                    <td class="content">@objItems.FirstName</td>
+                                    <td class="content">@objItems.LastName</td>
+                                    <td class="content">@objItems.UserName</td>
+                                    <td class="content">@objItems.Email</td>
+                                    <td class="content">@objItems.DOB</td>
+                                    <td class="content">@objItems.Phone</td>
+                                    <td class="content">@objItems.UserType</td>
+                                    <td class="content">@objItems.LoginTime</td>
+                                    <td class="content">
+                                        @if (objItems.IsActive == true)
+                                        {
+                                            <span>Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span>InActive</span>
+                                        }
+                                    </td>
+                                    <td class="content">
+                                        <a href="javascript:;" onclick="return UserDetailPartial('@objItems.UserId');">
+                                            <img src="../Content/images/edit.png" title="Edit" />
+                                        </a>
+                                        <a href="javascript:;" onclick="return deleteUser('@objItems.UserId');">
+                                            <img src="../Content/images/delete.png" title="Delete" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="w100 form m10 mtb10" id="dvAdd">
+            <div class="panel w100">
+                <div class="modal-dialog modal-lg" id="dvUserDetailPartial">
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+
+<script type="text/javascript">
+    function HidePopup() {
+        $("#dvAdd").hide();
+        $("#dvList").show();
+    }
+
+    function UserDetailPartial(val) {
+        $("#divLoading").show();
+        $.ajax({
+            type: "GET",
+            url: '/User/UserDetailPartial',
+            cache: false,
+            contentType: "application/html; charset=UTF-8;",
+            dataType: "html",
+            data: { Userid: val },
+            success: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvUserDetailPartial').html(partialView);
+                //$('#DOB').datepicker({
+                //    dateFormat: "mm/dd/yy",
+                //}).datepicker();
+                $("#dvAdd").hide();
+                $("#dvList").show();
+                if (val != '0') {
+                    $("#spnHeader").text('Edit User');
+                    $("#btnsubmit").text('Update');
+                }
+                else {
+                    $("#spnHeader").text('Add User');
+                    $("#btnsubmit").text('Save');
+                }
+            },
+            error: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvUserDetailPartial').html(partialView);
+                $("#dvAdd").hide();
+                $("#dvList").show();
+            }
+        });
+    }
+
+    function CheckValidation() {
+        var countVal = 0;
+        var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        var UserName = $('#UserName').val();
+        var Email = $('#Email').val();
+        var Phone = $('#Phone').val();
+        var FirstName = $('#FirstName').val();
+        var LastName = $('#LastName').val();
+        var DOB = $('#DOB').val();
+        var Password = $('#Password').val();
+        var RoleTypeId = $('#RoleTypeId').val();
+        var UserType = $('#UserType').val();
+
+        if (FirstName == "") {
+            toastr.error("First Name is Required!");
+            document.getElementById('FirstName').focus();
+            countVal++;
+        }
+        else if (LastName == "") {
+            toastr.error("Last Name is Required!");
+            document.getElementById('LastName').focus();
+            countVal++;
+        }
+        else if (UserName == "") {
+            toastr.error("User Name is Required!");
+            document.getElementById('UserName').focus();
+            countVal++;
+        }
+        else if (Password == "") {
+            toastr.error("Password is Required!");
+            document.getElementById('Password').focus();
+            countVal++;
+        }
+        else if (Email == "") {
+            toastr.error("Email is Required!");
+            document.getElementById('Phone').focus();
+            countVal++;
+        }
+        else if (Phone == "") {
+            toastr.error("Phone is Required!");
+            document.getElementById('Phone').focus();
+            countVal++;
+        }
+        else if (DOB == "") {
+            toastr.error("DOB is Required!");
+            document.getElementById('DOB').focus();
+            countVal++;
+        }
+        else if (RoleTypeId == "") {
+            toastr.error("Role is Required!");
+            document.getElementById('RoleTypeId').focus();
+            countVal++;
+        }
+        else if (UserType == "") {
+            toastr.error("User Type is Required!");
+            document.getElementById('UserType').focus();
+            countVal++;
+        }
+        else if (Email != "") {
+            if (Email.match(mailformat)) {
+                document.getElementById('Email').focus();
+            }
+            else {
+                toastr.error("You have entered an invalid email address!");
+                countVal = 1;
+            }
+        }
+
+        if (countVal != 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function SaveData() {
+        flag = CheckValidation();
+        if (flag == true) {
+
+            var ImageName = '';
+            var ImageFullPath = '';
+            if ($("#UploadImage").val() !== '') {
+                ImageFullPath = $("#UploadImage").val();
+
+            }
+            if (ImageFullPath === '') {
+                ImageFullPath = $("#iImageURL").attr('src');
+            }
+
+            if (ImageFullPath !== undefined && ImageFullPath !== '') {
+                if (ImageFullPath.length > 0) {
+                    ImageFullPath = ImageFullPath.replace(/[/]/g, '\\');
+                    var splitImageFullPath = ImageFullPath.split("\\");
+                    var lastIndex = splitImageFullPath.length;
+                    ImageName = splitImageFullPath[lastIndex - 1];
+
+                    var fileUpload = $("#UploadImage").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    $.ajax({
+                        //url: '/Educational/UploadFiles',
+                        url: '/User/UploadFiles',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+                            //alert(result);
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                }
+            }
+
+            var isActive = false;
+            if ($("#IsActive option:selected").val() === "1") {
+                isActive = true;
+            }
+
+            var UNI = new Object();
+            UNI.UserId = $('#UserId').val();
+            UNI.UserName = $('#UserName').val();
+            UNI.Password = $('#Password').val();
+            UNI.FirstName = $('#FirstName').val();
+            UNI.LastName = $('#LastName').val();
+            UNI.DOB = $('#DOB').val();
+            UNI.Email = $('#Email').val();
+            UNI.Address = $('#Address').val();
+            UNI.Phone = $('#Phone').val();
+            UNI.UserType = $('#UserType').val();
+            UNI.RoleTypeId = $('#RoleTypeId').val();
+            UNI.UserImage = ImageName;
+            UNI.IsActive = isActive;
+            UNI.IsDeleted = false;
+
+            $("#divLoading").show();
+            $.ajax({
+                type: 'POST',
+                url: '/User/OperationUser',
+                data: JSON.stringify(UNI),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        // toastr.success(response.responseText);
+                        toastr.success("Saved Successfully");
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+    }
+
+    function deleteUser(val) {
+        $("#divLoading").show();
+        var confirmation = confirm("Are you sure you want to Delete?");
+        if (confirmation) {
+            var UNI = new Object();
+            UNI.UserId = val;
+            $("#divLoading").show();
+            $.ajax({
+                type: "POST",
+                url: '/User/DeleteUser',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify(UNI),
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        toastr.success(response.responseText);
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+        $("#divLoading").hide();
+    }
+
+    function FreeSearch(val) {
+        // Declare variables
+        var input, filter, table, tr, td0, td1, td2, td3, td4, td5, td6, td7, td8, td9, i;
+        input = document.getElementById("txtSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById(val);
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td0 = tr[i].getElementsByTagName("td")[0];
+            var IsFound = false;
+            if (td0 && IsFound == false) {
+                if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td1 = tr[i].getElementsByTagName("td")[1];
+            if (td1 && IsFound == false) {
+                if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td2 = tr[i].getElementsByTagName("td")[2];
+            if (td2 && IsFound == false) {
+                if (td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td3 = tr[i].getElementsByTagName("td")[3];
+            if (td3 && IsFound == false) {
+                if (td3.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td4 = tr[i].getElementsByTagName("td")[4];
+            if (td4 && IsFound == false) {
+                if (td4.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td5 = tr[i].getElementsByTagName("td")[5];
+            if (td5 && IsFound == false) {
+                if (td5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td6 = tr[i].getElementsByTagName("td")[6];
+            if (td6 && IsFound == false) {
+                if (td6.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td7 = tr[i].getElementsByTagName("td")[7];
+            if (td7 && IsFound == false) {
+                if (td7.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td8 = tr[i].getElementsByTagName("td")[8];
+            if (td8 && IsFound == false) {
+                if (td8.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td9 = tr[i].getElementsByTagName("td")[8];
+            if (td9 && IsFound == false) {
+                if (td9.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function ExportToExcel(Id) {
+        var tab_text = "<table border='2px'><tr>";
+        var textRange;
+        var j = 0;
+        var sa;
+        tab = document.getElementById(Id);
+        var headerRow = $('[id*=' + Id + '] tr:first');
+        tab_text += headerRow.html() + '</tr><tr>';
+        var rows = $('[id*=' + Id + '] tr:not(:has(th))');
+        for (j = 0; j < rows.length; j++) {
+            if ($(rows[j]).css('display') != 'none') {
+
+                tab_text = tab_text + rows[j].innerHTML + "</tr>";
+            }
+        }
+        tab_text = tab_text + "</table>";
+        tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+        tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html", "replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus();
+            sa = txtArea1.document.execCommand("SaveAs", true, "Test" + ".xlsx");
+        }
+        else {                 //other browser not tested on IE 11
+            //download(tab_text, 'GSTR1Summary.xls', 'data:application/vnd.ms-excel');
+            name = 'UserList' + '.xls';
+            var a = document.createElement("a");
+            var file = new Blob([tab_text], { type: "User List" });
+            a.href = URL.createObjectURL(file);
+            a.download = name;
+            a.click();
+        }
+
+        return (sa);
+    }
+
+</script>
+<script type="text/javascript">
+    function showimagepreview(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#iImageURL').attr('src', e.target.result);
+                $('#iImagePreview').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+    function RemoveUpdatedImage() {
+        $('#iImageURL').attr('src', '../images/noimage.jpg');
+        $('#UploadImage').val('');
+    }
+    function RemoveInsertedImage() {
+        $('#iImagePreview').attr('src', '../images/noimage.jpg');
+        $('#UploadImage').val('');
+    }
+</script>
+
+
+<style type="text/css">
+    #thFirstName:hover, #thLastName:hover, #thUserName:hover, #thEmail:hover, #thDOB:hover, #thPhoneNumber:hover, #thUserType:hover, #thLastLogin:hover, #thStatus:hover {
+        cursor: pointer;
+    }
+</style>
+<script>
+    function sortTable(f, n) {
+        var rows = $('#tblUser tbody  tr').get();
+
+        rows.sort(function (a, b) {
+
+            var A = getVal(a);
+            var B = getVal(b);
+
+            if (A < B) {
+                return -1 * f;
+            }
+            if (A > B) {
+                return 1 * f;
+            }
+            return 0;
+        });
+
+        function getVal(elm) {
+            var v = $(elm).children('td').eq(n).text().toUpperCase();
+            if ($.isNumeric(v)) {
+                v = parseInt(v, 10);
+            }
+            return v;
+        }
+
+        $.each(rows, function (index, row) {
+            $('#tblUser').children('tbody').append(row);
+        });
+    }
+
+    var f_sl = 1;
+    var f_nm = 1;
+    $("#thFirstName").click(function () {
+        f_sl *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_sl, n);
+    });
+    $("#thLastName").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thUserName").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thEmail").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thDOB").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thPhoneNumber").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thUserType").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thLastLogin").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thStatus").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+</script>

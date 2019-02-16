@@ -1,0 +1,207 @@
+﻿@using CreativeBox.Domain.Entity;
+@using System.Configuration;
+@{
+    ProductEntity obj = new ProductEntity();
+
+    obj = (ProductEntity)ViewBag.objProductEntity;
+    var webUrl = ConfigurationManager.AppSettings["WebUrl"];
+}
+
+<div class="modal-content" style="margin-top: 25px;">
+    <div class="modal-header popup-heading form-group:last-child">
+        <a class="close" onclick="HidePopup();">&times;</a>
+        <h4 class="modal-title" style="text-align: center;">
+            <span id="spnHeader"> Add Product </span>
+        </h4>
+    </div>
+    <div class="panel-heading clearfix">
+        <form>
+            <input type="hidden" id="ProductAutoId" value="@obj.ProductAutoId" />
+            <div class="col-sm-6 form-group valid-form">
+                <label>Product Name</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Product Name" type="text" id="ProductName" value="@obj.ProductName" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Product Id</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="ProductId" type="text" id="ProductId" value="@obj.ProductId" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Standard BPO</label>
+                <input class="form-control" placeholder="Standard BPO" type="text" id="StandardBPO" value="@obj.StandardBPO" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    HS Code
+                </label>
+                <input class="form-control" placeholder="HsCode" value="@obj.HsCode"
+                       type="text" id="HsCode" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Display Order
+                </label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="DisplayOrder" value="@obj.DisplayOrder"
+                       type="text" id="DisplayOrder" />
+            </div>
+
+            <div class="col-sm-6 form-group valid-form">
+                <label>Unit Price</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" type="text" value="@obj.UnitPrice"
+                       placeholder="Unit Price" id="UnitPrice" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Quantity
+                </label>
+                <input class="form-control" placeholder="Quantity" value="@obj.Quantity"
+                       type="text" id="Quantity" maxlength="11" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Weight
+                </label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Weight" value="@obj.Weight"
+                       type="text" id="Weight" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Price
+                </label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Price" value="@obj.Price"
+                       type="text" id="Price" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>ProductReference</label>
+                <input class="form-control" placeholder="Product Reference" value="@obj.ProductReference"
+                       type="text" id="ProductReference" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Currency</label><span class="at-required-highlight astrick">*</span>
+                <select name="Currency" style="margin: -2px 0 -10px; padding:8px" id="Currency" class="form-control">
+                    <option value="" selected="selected">Select Currency</option>
+                    <option value="USD" selected="selected">United States Dollars</option>
+                    <option value="EUR">Euro</option>
+                    <option value="GBP">United Kingdom Pounds</option>
+                    <option value="DZD">Algeria Dinars</option>
+                    <option value="ARP">Argentina Pesos</option>
+                    <option value="AUD">Australia Dollars</option>
+                    <option value="ATS">Austria Schillings</option>
+                    <option value="BSD">Bahamas Dollars</option>
+                    <option value="BBD">Barbados Dollars</option>
+                    <option value="BEF">Belgium Francs</option>
+                    <option value="BMD">Bermuda Dollars</option>
+                    <option value="BRR">Brazil Real</option>
+                    <option value="BGL">Bulgaria Lev</option>
+                    <option value="CAD">Canada Dollars</option>
+                    <option value="CLP">Chile Pesos</option>
+                    <option value="CNY">China Yuan Renmimbi</option>
+                    <option value="CYP">Cyprus Pounds</option>
+                    <option value="CSK">Czech Republic Koruna</option>
+                    <option value="DKK">Denmark Kroner</option>
+                    <option value="NLG">Dutch Guilders</option>
+                    <option value="XCD">Eastern Caribbean Dollars</option>
+                    <option value="EGP">Egypt Pounds</option>
+                    <option value="FJD">Fiji Dollars</option>
+                    <option value="FIM">Finland Markka</option>
+                    <option value="FRF">France Francs</option>
+                    <option value="DEM">Germany Deutsche Marks</option>
+                    <option value="XAU">Gold Ounces</option>
+                    <option value="GRD">Greece Drachmas</option>
+                    <option value="HKD">Hong Kong Dollars</option>
+                    <option value="HUF">Hungary Forint</option>
+                    <option value="ISK">Iceland Krona</option>
+                    <option value="INR">India Rupees</option>
+                    <option value="IDR">Indonesia Rupiah</option>
+                    <option value="IEP">Ireland Punt</option>
+                    <option value="ILS">Israel New Shekels</option>
+                    <option value="ITL">Italy Lira</option>
+                    <option value="JMD">Jamaica Dollars</option>
+                    <option value="JPY">Japan Yen</option>
+                    <option value="JOD">Jordan Dinar</option>
+                    <option value="KRW">Korea (South) Won</option>
+                    <option value="LBP">Lebanon Pounds</option>
+                    <option value="LUF">Luxembourg Francs</option>
+                    <option value="MYR">Malaysia Ringgit</option>
+                    <option value="MXP">Mexico Pesos</option>
+                    <option value="NLG">Netherlands Guilders</option>
+                    <option value="NZD">New Zealand Dollars</option>
+                    <option value="NOK">Norway Kroner</option>
+                    <option value="PKR">Pakistan Rupees</option>
+                    <option value="XPD">Palladium Ounces</option>
+                    <option value="PHP">Philippines Pesos</option>
+                    <option value="XPT">Platinum Ounces</option>
+                    <option value="PLZ">Poland Zloty</option>
+                    <option value="PTE">Portugal Escudo</option>
+                    <option value="ROL">Romania Leu</option>
+                    <option value="RUR">Russia Rubles</option>
+                    <option value="SAR">Saudi Arabia Riyal</option>
+                    <option value="XAG">Silver Ounces</option>
+                    <option value="SGD">Singapore Dollars</option>
+                    <option value="SKK">Slovakia Koruna</option>
+                    <option value="ZAR">South Africa Rand</option>
+                    <option value="KRW">South Korea Won</option>
+                    <option value="ESP">Spain Pesetas</option>
+                    <option value="XDR">Special Drawing Right (IMF)</option>
+                    <option value="SDD">Sudan Dinar</option>
+                    <option value="SEK">Sweden Krona</option>
+                    <option value="CHF">Switzerland Francs</option>
+                    <option value="TWD">Taiwan Dollars</option>
+                    <option value="THB">Thailand Baht</option>
+                    <option value="TTD">Trinidad and Tobago Dollars</option>
+                    <option value="TRL">Turkey Lira</option>
+                    <option value="VEB">Venezuela Bolivar</option>
+                    <option value="ZMK">Zambia Kwacha</option>
+                    <option value="EUR">Euro</option>
+                    <option value="XCD">Eastern Caribbean Dollars</option>
+                    <option value="XDR">Special Drawing Right (IMF)</option>
+                    <option value="XAG">Silver Ounces</option>
+                    <option value="XAU">Gold Ounces</option>
+                    <option value="XPD">Palladium Ounces</option>
+                    <option value="XPT">Platinum Ounces</option>
+                </select>
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>IsActive</label>
+                <select name="IsActive" style="margin: -2px 0 -10px; padding:8px" id="IsActive" class="form-control">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-12 form-group valid-form">
+                <label>Agent Logo</label>
+                <input class="form-control" placeholder="Upload Image"
+                       type="file" id="UploadImage" onchange="showimagepreview(this)" />
+            </div>
+            <div class="col-sm-12 form-group valid-form">
+                @if (obj.ProductImage != null && Convert.ToString(obj.ProductImage).Trim() != "")
+                {
+                    var imgUrl = webUrl + "images/product/" + obj.ProductImage;
+                    <img src="@imgUrl" style="width:200px;height:150px;" id="iImageURL" />
+                    <br />
+                    <input type="button" id="btnRemoveUpdatedImage" value="Remove Image" onclick="RemoveUpdatedImage()" style="margin-top:4px;" />
+                }
+                else
+                {
+                    <img src="~/images/noimage.jpg" style="width:200px;height:150px;" id="iImagePreview" />
+                    <br />
+                    <input type="button" id="btnRemoveInsertedImage" value="Remove Image" onclick="RemoveInsertedImage()" style="margin-top:4px;" />
+                }
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-12 col-md-12 text-center">
+            <button type="submit" id="btnsubmit" class="btn btn-info" onclick="return SaveData();">Save</button>
+            <button type="button" id="btnHideModal" class="btn btn-danger" onclick="return HidePopup();">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if ("@obj.IsActive" === "False") {
+        $("#IsActive").val('0');
+    }
+    $("#Currency").val('@obj.Currency');
+</script>

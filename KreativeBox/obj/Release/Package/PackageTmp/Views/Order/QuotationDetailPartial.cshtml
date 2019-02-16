@@ -1,0 +1,105 @@
+﻿@using CreativeBox.Domain.Entity;
+@{
+    QuotationEntity obj = new QuotationEntity();
+
+    obj = (QuotationEntity)ViewBag.objQuotationEntity;
+}
+
+<div class="modal-content" style="margin-top: 25px;">
+    <div class="modal-header popup-heading form-group:last-child">
+        <a class="close" onclick="HidePopup();">&times;</a>
+        <h4 class="modal-title" style="text-align: center;">
+            <span id="spnHeader"> Add Quotation </span>
+        </h4>
+    </div>
+    <div class="panel-heading clearfix">
+        <form>
+            <input type="hidden" id="QuotationId" value="@obj.QuotationId" />
+            <div class="col-sm-6 form-group valid-form">
+                <label>Product Name</label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Product Name" type="text" id="ProductName" value="@obj.ProductName" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Variation</label>
+                <input class="form-control" placeholder="Variation" type="text" id="Variation" value="@obj.Variation" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>Product Reference</label>
+                <input class="form-control" placeholder="Product Reference" type="text" id="ProductReference" value="@obj.ProductReference" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Process
+                </label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Post code" value="@obj.Process"
+                       type="text" id="Process" maxlength="6" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Quotation Type
+                </label><span class="at-required-highlight astrick">*</span>
+                <input class="form-control" placeholder="Quotation Type" value="@obj.QuotationType"
+                       type="text" id="QuotationType" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Proofing method
+                </label>
+                <input class="form-control" placeholder="Proofing Method" value="@obj.ProofingMethod"
+                       type="text" id="ProofingMethod" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Quantity
+                </label>
+                <input class="form-control" type="text" value="@obj.Quantity"
+                       placeholder="Quantity" id="Quantity" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>
+                    Order ID
+                </label>
+                <input class="form-control" type="text" value="@obj.OrderId"
+                       placeholder="OrderId" id="OrderId" />
+            </div>
+            <div class="col-sm-12 form-group valid-form">
+                <label>Specification</label>
+                <input class="form-control" type="text" value="@obj.Specification"
+                       placeholder="Specification" id="Specification" />
+            </div>
+            <div class="col-sm-12 form-group valid-form">
+                <label>
+                    Comments
+                </label>
+                <input class="form-control" type="text" value="@obj.Comments"
+                       placeholder="Comments" id="Comments" />
+            </div>
+            <div class="col-sm-12 form-group valid-form">
+                <label>
+                    Invoice recipient
+                </label>
+                <input class="form-control" type="text" value="@obj.InvoiceRecipient"
+                       placeholder="Invoice recipient" id="InvoiceRecipient" />
+            </div>
+            <div class="col-sm-6 form-group valid-form">
+                <label>IsActive</label>
+                <select name="IsActive" style="margin: -2px 0 -10px; padding:8px" id="IsActive" class="form-control">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-12 col-md-12 text-center">
+            <button type="submit" id="btnsubmit" class="btn btn-info" onclick="return SaveData();">Save</button>
+            <button type="button" id="btnHideModal" class="btn btn-danger" onclick="return HidePopup();">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if ("@obj.IsActive" === "False") {
+        $("#IsActive").val('0');
+    }
+</script>

@@ -1,0 +1,119 @@
+﻿@using CreativeBox.Domain.Entity;
+@using System.Configuration;
+@{
+    UserEntity obj = new UserEntity();
+
+    obj = (UserEntity)ViewBag.objUserEntity;
+
+    var webUrl = ConfigurationManager.AppSettings["WebUrl"];
+}
+
+
+
+<div class="w100 panel-heading">
+    <h4>
+        <label id="spnHeader"> Add User </label>
+    </h4>
+</div>
+<div class="panel-heading clearfix">
+    <form class="w100 d-flex justify-content-between flex-wrap">
+        <input type="hidden" id="UniversityId" value="@obj.UserId" />
+        <div class="w49 p10">
+            <label>First Name</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="First Name" type="text" id="FirstName" value="@obj.FirstName" />
+        </div>
+        <div class="w49 p10">
+            <label>Last Name</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="Last Name" type="text" id="LastName" value="@obj.LastName" />
+        </div>
+        <div class="w49">
+            <label>User Name</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="User Name" type="text" id="UserName" value="@obj.UserName" />
+        </div>
+        <div class="w49">
+            <label>Password</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="Password" type="text" id="Password" value="@obj.Password" />
+        </div>
+        <div class="w49 p10">
+            <label>DOB</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="DOB" type="text" id="DOB" value="@obj.DOB" />
+        </div>
+        <div class="w49 p10">
+            <label>Email</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="Email" type="text" id="Email" value="@obj.Email" />
+        </div>
+        <div class="w49 p10">
+            <label>Phone</label><span class="at-required-highlight astrick">*</span>
+            <input class="form-control" placeholder="Phone" type="text" id="Phone" maxlength="11" value="@obj.Phone" />
+        </div>
+        <div class="w49 p10">
+            <label>User Type</label><span class="at-required-highlight astrick">*</span>
+            <select name="UserType" style="margin: -2px 0 -10px; padding:8px" id="UserType" class="form-control">
+                <option value="" selected="selected">-- Select --</option>
+                <option value="New South Wales">Admin</option>
+                <option value="Queensland">Agent</option>
+                <option value="South Australia">University</option>
+            </select>
+        </div>
+        <div class="w49 p10">
+            <label>Role</label><span class="at-required-highlight astrick">*</span>
+            <select name="RoleTypeId" style="margin: -2px 0 -10px; padding:8px" id="RoleTypeId" class="form-control">
+                <option value="" selected="selected">-- Select --</option>
+                <option value="Australia">WareHouse</option>
+            </select>
+        </div>
+        <div class="w49 p10">
+            <label>IsActive</label>
+            <select name="IsActive" style="margin: -2px 0 -10px; padding:8px" id="IsActive" class="form-control">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+        <div class="w49">
+            <label>User Image</label>
+            <input class="form-control" placeholder="Upload Image"
+                   type="file" id="UploadImage" onchange="showimagepreview(this)" />
+        </div>
+        <div class="w49">
+            <label>Address</label>
+            <input class="form-control" placeholder="Address" type="text" id="Address" value="@obj.Address" />
+        </div>
+        <div class="w49 p10">
+            @if (obj.UserImage != null && Convert.ToString(obj.UserImage).Trim() != "")
+            {
+                var imgUrl = webUrl + "images/user/" + obj.UserImage;
+                <img src="@imgUrl" style="width:200px;height:150px;" id="iImageURL" />
+                <br />
+                <input type="button" id="btnRemoveUpdatedImage" value="Remove Image" onclick="RemoveUpdatedImage()" style="margin-top:4px;" />
+            }
+            else
+            {
+                <img src="~/images/noimage.jpg" style="width:200px;height:150px;" id="iImagePreview" />
+                <br />
+                <input type="button" id="btnRemoveInsertedImage" value="Remove Image" onclick="RemoveInsertedImage()" style="margin-top:4px;" />
+            }
+        </div>
+    </form>
+    <div class="w100 d-flex justify-content-center flex-wrap p10">
+        <div class="w15 plr10">
+            <button type="button" class="btn btn-primary" id="btnsubmit" onclick="return SaveData();">Save</button>
+        </div>
+        <div class="w15 plr10">
+            <button type="button" class="btn btn-danger" id="btnHideModal" onclick="return HidePopup();">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if ("@obj.IsActive" === "False") {
+        $("#IsActive").val('0');
+    }
+    $("#RoleTypeId").val('@obj.RoleTypeId');
+    $("#UserType").val('@obj.UserType');
+
+    $(document).ready(function () {
+        $('#DOB').datepicker({
+            dateFormat: "mm/dd/yy",
+        }).datepicker();
+    });
+</script>

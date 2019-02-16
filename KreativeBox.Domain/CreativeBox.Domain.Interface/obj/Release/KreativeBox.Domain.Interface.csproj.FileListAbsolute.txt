@@ -1,0 +1,9 @@
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\bin\Release\CreativeBox.Domain.Interface.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\bin\Release\CreativeBox.Domain.Interface.pdb
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\bin\Release\CreativeBox.Domain.Entity.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\bin\Release\CreativeBox.Utility.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\bin\Release\CreativeBox.Utility.pdb
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\bin\Release\CreativeBox.Domain.Entity.pdb
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\obj\Release\KreativeBox.Domain.Interface.csprojResolveAssemblyReference.cache
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\obj\Release\CreativeBox.Domain.Interface.dll
+G:\MyProject\KreativeBox\KreativeBox.Domain\CreativeBox.Domain.Interface\obj\Release\CreativeBox.Domain.Interface.pdb

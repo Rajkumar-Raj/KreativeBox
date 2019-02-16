@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2c4f9f1ed6884327988540c76d1791a5" Name="Diagram1">
+        <EntityTypeShape EntityType="KreativeBoxModel.tblAgent" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblRole" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblUniversity" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblUser" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblWareHouse" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblAddressSetting" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblOrder" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblProduct" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="KreativeBoxModel.tblQuotation" Width="1.5" PointX="9.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

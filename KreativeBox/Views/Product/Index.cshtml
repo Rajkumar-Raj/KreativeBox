@@ -1,0 +1,573 @@
+﻿@model IEnumerable<CreativeBox.Domain.Entity.ProductEntity>
+@{
+    ViewBag.Title = "Product List";
+}
+
+<div class="container-fluid">
+    <div class="w100 m10 mtb10">
+        <div class="w100 panel list" id="dvList">
+            <div class="w100 panel-heading d-flex justify-content-between align-items-center">
+                <h4><label>List of Product</label></h4>
+                <div class="w50 d-flex justify-content-between">
+                    <div class="w33">
+                        <input type="text" id="txtSearch" onkeyup="FreeSearch('tblProduct');" class="form-control serchbox" placeholder="Search for Product.." style="padding-left: 10px;">
+                    </div>
+                    <div class="w33">
+                        <button type="button" class="btn btn-primary" id="btnAddProduct" onclick="return ProductDetailPartial('0');">
+                            <i class="fa fa-plus-circle fa-lg">
+                            </i> Add Product
+                        </button>
+                    </div>
+                    <div class="w33">
+                        <button type="button" class="btn btn-info" id="btnExport" value="Export To Excel" onclick="return ExportToExcel('tblProduct');">
+                            <img src="/Content/images/xls-excel.png"> Export To Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body  w100">
+                <table id="tblProduct">
+                    <thead>
+                        <tr>
+                            <th class="tableTR" id="thProductName">Product Name</th>
+                            <th class="tableTR" id="thHsCode">HsCode</th>
+                            <th class="tableTR" id="thStandardBPO">StandardBPO</th>
+                            <th class="tableTR" id="thWareHouseName">WareHouse Name</th>
+                            <th class="tableTR" id="thDepartment">Department</th>
+                            <th class="tableTR" id="thWeight">Weight</th>
+                            <th class="tableTR" id="thQuantity">Quantity</th>
+                            <th class="tableTR" id="thUnitPrice">Unit Price</th>
+                            <th class="tableTR" id="thPrice">Price</th>
+                            <th class="tableTR" id="thStatus">Status</th>
+                            <th class="tableTR" id="thAction">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var objItems in Model)
+                            {
+                                <tr>
+                                    <td class="content">@objItems.ProductName</td>
+                                    <td class="content">@objItems.HsCode</td>
+                                    <td class="content">@objItems.StandardBPO</td>
+                                    <td class="content">@objItems.WareHouseName</td>
+                                    <td class="content">@objItems.Department</td>
+                                    <td class="content">@objItems.Weight</td>
+                                    <td class="content">@objItems.Quantity</td>
+                                    <td class="content">@objItems.UnitPrice</td>
+                                    <td class="content">@objItems.Price</td>
+                                    <td class="content">
+                                        @if (objItems.IsActive == true)
+                                        {
+                                            <span>Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span>InActive</span>
+                                        }
+                                    </td>
+                                    <td class="content">
+                                        <a href="javascript:;" onclick="return ProductDetailPartial('@objItems.ProductAutoId');">
+                                            <img src="../Content/images/edit.png" title="Edit" />
+                                        </a>
+                                        <a href="javascript:;" onclick="return deleteProduct('@objItems.ProductAutoId');">
+                                            <img src="../Content/images/delete.png" title="Delete" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="w100 form m10 mtb10" id="dvAdd">
+            <div class="panel w100">
+                <div class="modal-dialog modal-lg" id="dvProductDetailPartial">
+                </div>
+            </div>
+        </div>
+
+    </div>    
+</div>
+
+<script type="text/javascript">
+    function HidePopup() {
+        $("#dvAdd").hide();
+        $("#dvList").show();
+    }
+
+    function ProductDetailPartial(val) {
+        $("#divLoading").show();
+        $.ajax({
+            type: "GET",
+            url: '/Product/ProductDetailPartial',
+            cache: false,
+            contentType: "application/html; charset=UTF-8;",
+            dataType: "html",
+            data: { idproduct: val },
+            success: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvProductDetailPartial').html(partialView);
+                $("#dvAdd").hide();
+                $("#dvList").show();
+                if (val != '0') {
+                    $("#spnHeader").text('Edit Product');
+                    $("#btnsubmit").text('Update');
+                }
+                else {
+                    $("#spnHeader").text('Add Product');
+                    $("#btnsubmit").text('Save');
+                }
+            },
+            error: function (partialView) {
+                $("#divLoading").hide();
+                $('#dvProductDetailPartial').html(partialView);
+                $("#dvAdd").hide();
+                $("#dvList").show();
+            }
+        });
+    }
+
+    function CheckValidation() {
+        var countVal = 0;
+        var ProductName = $('#ProductName').val();
+        var ProductId = $('#ProductId').val();
+        var DisplayOrder = $('#DisplayOrder').val();
+        var UnitPrice = $('#UnitPrice').val();
+        var Currency = $('#Currency').val();
+
+        if (Currency == "") {
+            toastr.error("Country is Required!");
+            document.getElementById('Currency').focus();
+            countVal++;
+        }
+        else if (UnitPrice == "") {
+            toastr.error("Unit Price is Required!");
+            document.getElementById('UnitPrice').focus();
+            countVal++;
+        }
+        else if (DisplayOrder == "") {
+            toastr.error("Display Order is Required!");
+            document.getElementById('DisplayOrder').focus();
+            countVal++;
+        }
+        else if (ProductId == "") {
+            toastr.error("ProductId is Required!");
+            document.getElementById('ProductId').focus();
+            countVal++;
+        }
+        else if (ProductName == "") {
+            toastr.error("Product Name is Required!");
+            document.getElementById('ProductName').focus();
+            countVal++;
+        }
+
+        if (countVal != 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function SaveData() {
+        flag = CheckValidation();
+        if (flag == true) {
+
+            var ImageName = '';
+            var ImageFullPath = '';
+            if ($("#UploadImage").val() !== '') {
+                ImageFullPath = $("#UploadImage").val();
+
+            }
+            if (ImageFullPath === '') {
+                ImageFullPath = $("#iImageURL").attr('src');
+            }
+
+            //alert(ImageFullPath);
+
+            if (ImageFullPath !== undefined && ImageFullPath !== '') {
+                if (ImageFullPath.length > 0) {
+                    ImageFullPath = ImageFullPath.replace(/[/]/g, '\\');
+                    var splitImageFullPath = ImageFullPath.split("\\");
+                    var lastIndex = splitImageFullPath.length;
+                    ImageName = splitImageFullPath[lastIndex - 1];
+
+                    var fileUpload = $("#UploadImage").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    $.ajax({
+                        //url: '/Educational/UploadFiles',
+                        url: '/Product/UploadFiles',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+                            //alert(result);
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                }
+            }
+
+            var isActive = false;
+            if ($("#IsActive option:selected").val() === "1") {
+                isActive = true;
+            }
+
+            var UNI = new Object();
+            UNI.ProductAutoId = $('#ProductAutoId').val();
+            UNI.ProductName = $('#ProductName').val();
+            UNI.ProductId = $('#ProductId').val();
+            UNI.StandardBPO = $('#StandardBPO').val();
+            UNI.HsCode = $('#HsCode').val();
+            UNI.DisplayOrder = $('#DisplayOrder').val();
+            UNI.ProductLogo = $('#ProductLogo').val();
+            UNI.UnitPrice = $('#UnitPrice').val();
+            UNI.Quantity = $('#Quantity').val();
+            UNI.Weight = $('#Weight').val();
+            UNI.Price = $('#Price').val();
+            UNI.ProductReference = $('#ProductReference').val();
+            UNI.Currency = $('#Currency').val();
+            UNI.IsActive = isActive;
+            UNI.IsDeleted = false;
+
+            $("#divLoading").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Product/OperationProduct',
+                data: JSON.stringify(UNI),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        // toastr.success(response.responseText);
+                        toastr.success("Saved Successfully");
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+    }
+
+    function deleteProduct(val) {
+        $("#divLoading").show();
+        var confirmation = confirm("Are you sure you want to Delete?");
+        if (confirmation) {
+            var UNI = new Object();
+            UNI.ProductAutoId = val;
+            $("#divLoading").show();
+            $.ajax({
+                type: "POST",
+                url: '/Product/DeleteProduct',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify(UNI),
+                success: function (response) {
+                    if (response.success == true) {
+                        location.reload();
+                        toastr.success(response.responseText);
+                    }
+                    else {
+                        toastr.error(response.responseText);
+                    }
+                    $("#divLoading").hide();
+                },
+                error: function (response) {
+                    $("#divLoading").hide();
+                    toastr.success(response.responseText);
+                }
+            });
+        }
+        $("#divLoading").hide();
+    }
+
+    function FreeSearch(val) {
+        // Declare variables
+        var input, filter, table, tr, td0, td1, td2, td3, td4, td5, td6, td7, td8, td9, i;
+        input = document.getElementById("txtSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById(val);
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td0 = tr[i].getElementsByTagName("td")[0];
+            var IsFound = false;
+            if (td0 && IsFound == false) {
+                if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td1 = tr[i].getElementsByTagName("td")[1];
+            if (td1 && IsFound == false) {
+                if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td2 = tr[i].getElementsByTagName("td")[2];
+            if (td2 && IsFound == false) {
+                if (td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td3 = tr[i].getElementsByTagName("td")[3];
+            if (td3 && IsFound == false) {
+                if (td3.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td4 = tr[i].getElementsByTagName("td")[4];
+            if (td4 && IsFound == false) {
+                if (td4.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td5 = tr[i].getElementsByTagName("td")[5];
+            if (td5 && IsFound == false) {
+                if (td5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td6 = tr[i].getElementsByTagName("td")[6];
+            if (td6 && IsFound == false) {
+                if (td6.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td7 = tr[i].getElementsByTagName("td")[7];
+            if (td7 && IsFound == false) {
+                if (td7.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td8 = tr[i].getElementsByTagName("td")[8];
+            if (td8 && IsFound == false) {
+                if (td8.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            td9 = tr[i].getElementsByTagName("td")[8];
+            if (td9 && IsFound == false) {
+                if (td9.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    IsFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function ExportToExcel(Id) {
+        var tab_text = "<table border='2px'><tr>";
+        var textRange;
+        var j = 0;
+        var sa;
+        tab = document.getElementById(Id);
+        var headerRow = $('[id*=' + Id + '] tr:first');
+        tab_text += headerRow.html() + '</tr><tr>';
+        var rows = $('[id*=' + Id + '] tr:not(:has(th))');
+        for (j = 0; j < rows.length; j++) {
+            if ($(rows[j]).css('display') != 'none') {
+
+                tab_text = tab_text + rows[j].innerHTML + "</tr>";
+            }
+        }
+        tab_text = tab_text + "</table>";
+        tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+        tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html", "replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus();
+            sa = txtArea1.document.execCommand("SaveAs", true, "Test" + ".xlsx");
+        }
+        else {                 //other browser not tested on IE 11
+            //download(tab_text, 'GSTR1Summary.xls', 'data:application/vnd.ms-excel');
+            name = 'ProductList' + '.xls';
+            var a = document.createElement("a");
+            var file = new Blob([tab_text], { type: "Product List" });
+            a.href = URL.createObjectURL(file);
+            a.download = name;
+            a.click();
+        }
+
+        return (sa);
+    }
+
+</script>
+<script type="text/javascript">
+    function showimagepreview(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#iImageURL').attr('src', e.target.result);
+                $('#iImagePreview').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+    function RemoveUpdatedImage() {
+        $('#iImageURL').attr('src', '../images/noimage.jpg');
+        $('#UploadImage').val('');
+    }
+    function RemoveInsertedImage() {
+        $('#iImagePreview').attr('src', '../images/noimage.jpg');
+        $('#UploadImage').val('');
+    }
+</script>
+
+<style type="text/css">
+    #thProductName:hover, #thHsCode:hover, #thStandardBPO:hover, #thWareHouseName:hover, #thDepartment:hover, #thWeight:hover, #thQuantity:hover, #thUnitPrice:hover, #thPrice:hover, #thStatus:hover {
+        cursor: pointer;
+    }
+</style>
+<script>
+    function sortTable(f, n) {
+        var rows = $('#tblProduct tbody  tr').get();
+
+        rows.sort(function (a, b) {
+
+            var A = getVal(a);
+            var B = getVal(b);
+
+            if (A < B) {
+                return -1 * f;
+            }
+            if (A > B) {
+                return 1 * f;
+            }
+            return 0;
+        });
+
+        function getVal(elm) {
+            var v = $(elm).children('td').eq(n).text().toUpperCase();
+            if ($.isNumeric(v)) {
+                v = parseInt(v, 10);
+            }
+            return v;
+        }
+
+        $.each(rows, function (index, row) {
+            $('#tblProduct').children('tbody').append(row);
+        });
+    }
+
+    var f_sl = 1;
+    var f_nm = 1;
+    $("#thProductName").click(function () {
+        f_sl *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_sl, n);
+    });
+    $("#thHsCode").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thStandardBPO").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thWareHouseName").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thDepartment").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thWeight").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thQuantity").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thUnitPrice").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thPrice").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+    $("#thStatus").click(function () {
+        f_nm *= -1;
+        var n = $(this).prevAll().length;
+        sortTable(f_nm, n);
+    });
+</script>

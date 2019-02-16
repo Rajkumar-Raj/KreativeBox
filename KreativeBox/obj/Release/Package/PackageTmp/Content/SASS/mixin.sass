@@ -1,0 +1,72 @@
+
+$screen_width: 'w_320', 'w_375', 'w_425', 'w_480'
+
+@mixin transition($property...)
+	-webkit-transition: $property
+	-moz-transition: $property
+	-o-transition: $property
+	transition: $property
+
+$borderBox: border-box
+@mixin boxSizing($borderBox) 
+	-webkit-box-sizing: $borderBox
+	-ms-box-sizing: $borderBox
+	box-sizing: $borderBox
+
+
+$transition: all ease 0.3s
+@mixin transition($transition) 
+	transition: $transition
+	-webkit-transition: $transition
+	-ms-transition: $transition
+	-o-transition: $transition
+
+$transform: rotate(30deg)
+@mixin transform($transform) 
+	-webkit-transform: $transform
+	-ms-transform: $transform
+	transform: $transform
+
+$boxShadow: 0 1px 1px rgba(0, 0, 0, .05)
+@mixin boxShadow($boxShadow) 
+	-webkit-box-shadow: $boxShadow
+	-ms-box-shadow: $boxShadow
+	box-shadow: $boxShadow
+///////////////////////////////////////////////media query////////////////////////
+@mixin breakpoint($media)
+	
+	@if $media == w_320
+		@media (max-width: 320px)
+			@content
+
+	@else if $media == w_375
+		@media (max-width: 375px)
+			@content
+
+	@else if $media == w_425
+		@media (max-width: 425px)
+			@content
+
+	@else if $media == w_480
+		@media (max-width: 480px)
+			@content
+
+	@else if $media == w_768
+		@media (max-width: 768px)
+			@content
+
+	@else if $media == w_1024
+		@media (max-width: 1024px)
+			@content
+
+	@else if $media == w_1280
+		@media (max-width: 1280px)
+			@content
+
+	@else if $media == w_1440
+		@media (max-width: 1440px)
+			@content
+
+	@else if $media == w_2560
+		@media (max-width: 2560px)
+			@content
